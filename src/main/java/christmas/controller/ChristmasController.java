@@ -31,7 +31,13 @@ public class ChristmasController {
         Map<String, Integer> menuInfo = inputMenuProcess();
         outputView.printBeforeNotifyBenefit(date);
         outputView.printOrderMenu(menuInfo);
-        outputView.printBeforeBenefitMoney(menuService.calculateBeforeBenefit(menuInfo));
+        long calculateTotalMoney = menuService.calculateBeforeBenefit(menuInfo);
+        outputView.printBeforeBenefitMoney(calculateTotalMoney);
+
+        // 증정선물 관련 값 비교 증정 이벤트: 할인 전 총주문 금액이 12만 원 이상일 때, 샴페인 1개 증정
+
+        outputView.printGiftProcess(menuService.giftService(calculateTotalMoney));
+
 
 
     }

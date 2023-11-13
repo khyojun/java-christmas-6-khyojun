@@ -18,4 +18,11 @@ public class MenuService {
         }
         return total;
     }
+
+    public String giftService(long calculateTotalMoney) {
+        if(calculateTotalMoney>1200000){
+            return "샴페인 1개";
+        }
+        return "없음";
+    }
 }
