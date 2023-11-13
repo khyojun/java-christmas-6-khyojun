@@ -1,17 +1,14 @@
 package christmas.util;
 
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Set;
 import java.util.regex.Pattern;
 
 public class MenuValidator {
 
-    private String menuPattern = "^[A-Za-z가-힣]+\\-+[\\d]+$";
+    private String menuPattern = "^[A-Za-z가-힣]+-+[\\d]+$";
 
 
     public void validate(String inputMenu) {
@@ -20,7 +17,7 @@ public class MenuValidator {
             validateFormat(firstSplitByComma);
             Map<String, Integer> menuInfo = putMenu(firstSplitByComma);
             validateMenuCountWrongNumber(menuInfo);
-            validateMenuDuplicate(menuInfo);
+            validateMenuDuplicate(menuInfo, firstSplitByComma.size());
         }catch (IllegalArgumentException error){
             throw new IllegalArgumentException(error.getMessage());
         }
@@ -46,18 +43,23 @@ public class MenuValidator {
         return inputMenuMap;
     }
 
-    private void validateMenuDuplicate(Map<String, Integer> menuInfo) {
-        Set<Entry<String, Integer>> menuInfoNoDuplicate = new HashSet<>(menuInfo.entrySet());
-
+    private void validateMenuDuplicate(Map<String, Integer> menuInfo, int size) {
+        if(menuInfo.size() != size){
+            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+        }
 
     }
 
 
     private void validateFormat(List<String> splitInputMenus) {
         for (String splitInputMenu : splitInputMenus) {
-            if(Pattern.matches(menuPattern, splitInputMenu))
+            if(isNotMatchFormat(splitInputMenu))
                 throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
         }
 
+    }
+
+    private boolean isNotMatchFormat(String splitInputMenu) {
+        return !Pattern.matches(menuPattern, splitInputMenu);
     }
 }
