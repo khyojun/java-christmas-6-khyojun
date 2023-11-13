@@ -21,17 +21,27 @@ public class MenuValidator {
             validateMenuCountWrongNumber(menuInfo);
             validateMenuDuplicate(menuInfo, firstSplitByComma.size());
             validateInMenu(menuInfo);
-        }catch (IllegalArgumentException error){
+            validateMenuTotal(menuInfo);
+        } catch (IllegalArgumentException error) {
             throw new IllegalArgumentException(error.getMessage());
         }
+    }
 
+    private void validateMenuTotal(Map<String, Integer> menuInfo) {
+        int total=0;
+        for (Integer value : menuInfo.values()) {
+            total+=value;
+            if(total>20)
+                throw new IllegalArgumentException("[ERROR] over count");
+        }
     }
 
     private void validateInMenu(Map<String, Integer> menuInfo) {
         List<String> menuNames = menuNames();
         for (Entry<String, Integer> menuEntry : menuInfo.entrySet()) {
-            if(!menuNames.contains(menuEntry.getKey()))
+            if (!menuNames.contains(menuEntry.getKey())) {
                 throw new IllegalArgumentException("[ERROR] no menu");
+            }
         }
     }
 
@@ -46,7 +56,7 @@ public class MenuValidator {
 
     private void validateMenuCountWrongNumber(Map<String, Integer> menuInfo) {
         for (Entry<String, Integer> nowMenuInfo : menuInfo.entrySet()) {
-            if(nowMenuInfo.getValue() < 1 || nowMenuInfo.getValue() > 20){
+            if (nowMenuInfo.getValue() < 1 || nowMenuInfo.getValue() > 20) {
                 throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
             }
 
@@ -64,7 +74,7 @@ public class MenuValidator {
     }
 
     private void validateMenuDuplicate(Map<String, Integer> menuInfo, int size) {
-        if(menuInfo.size() != size){
+        if (menuInfo.size() != size) {
             throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
         }
 
@@ -73,8 +83,9 @@ public class MenuValidator {
 
     private void validateFormat(List<String> splitInputMenus) {
         for (String splitInputMenu : splitInputMenus) {
-            if(isNotMatchFormat(splitInputMenu))
+            if (isNotMatchFormat(splitInputMenu)) {
                 throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+            }
         }
 
     }
