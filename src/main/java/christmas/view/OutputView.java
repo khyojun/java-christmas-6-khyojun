@@ -63,7 +63,8 @@ public class OutputView {
     }
 
     private void printBenefitProcess(BenefitStatus benefitStatus) {
-        // 화폐단위 고치기 xxx,xxx 단위로
+        System.out.println("<혜택 내역>");
+        // 화폐단위 고치기 xxx,xxx원 단위로
         if(benefitStatus.getdDaySalePrice()<0){
             System.out.printf("크리스마스 디데이 할인: %d\n", benefitStatus.getdDaySalePrice());
         }

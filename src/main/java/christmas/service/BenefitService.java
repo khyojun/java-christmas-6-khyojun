@@ -53,7 +53,7 @@ public class BenefitService {
 
     private long calculateDdayBenefit(Integer date) {
         if (date < 25) {
-            return (date - FIRST_DAY) * 100L * -1;
+            return -1000 + (date - FIRST_DAY) * 100L * -1;
         }
         return 0;
     }

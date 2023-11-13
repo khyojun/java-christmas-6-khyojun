@@ -29,7 +29,7 @@ public class MenuService {
     }
 
     public boolean giftService(long calculateTotalMoney) {
-        return calculateTotalMoney > 1200000;
+        return calculateTotalMoney > 120000;
     }
 
     public BenefitStatus benefitCalculate(Integer date, Map<String, Integer> menuInfo, long calculatedMoney) {
