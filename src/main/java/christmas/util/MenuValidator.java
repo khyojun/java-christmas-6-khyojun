@@ -1,5 +1,7 @@
 package christmas.util;
 
+import christmas.domain.Menu;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,10 +20,28 @@ public class MenuValidator {
             Map<String, Integer> menuInfo = putMenu(firstSplitByComma);
             validateMenuCountWrongNumber(menuInfo);
             validateMenuDuplicate(menuInfo, firstSplitByComma.size());
+            validateInMenu(menuInfo);
         }catch (IllegalArgumentException error){
             throw new IllegalArgumentException(error.getMessage());
         }
 
+    }
+
+    private void validateInMenu(Map<String, Integer> menuInfo) {
+        List<String> menuNames = menuNames();
+        for (Entry<String, Integer> menuEntry : menuInfo.entrySet()) {
+            if(!menuNames.contains(menuEntry.getKey()))
+                throw new IllegalArgumentException("[ERROR] no menu");
+        }
+    }
+
+    private List<String> menuNames() {
+        List<Menu> menus = List.of(Menu.values());
+        List<String> menuNames = new ArrayList<>();
+        for (Menu menu : menus) {
+            menuNames.add(menu.getMenuName());
+        }
+        return menuNames;
     }
 
     private void validateMenuCountWrongNumber(Map<String, Integer> menuInfo) {
