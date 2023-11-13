@@ -22,6 +22,19 @@ public class ChristmasController {
     public void startOrder() {
 
         Integer date = inputDateProcess();
+        inputMenuProcess();
+
+
+    }
+
+    private void inputMenuProcess() {
+        try{
+            outputView.beforeInputMenu();
+            String inputMenu = inputView.inputMenu();
+            validator.menuValidate(inputMenu);
+        }catch (IllegalArgumentException error){
+
+        }
 
 
     }
