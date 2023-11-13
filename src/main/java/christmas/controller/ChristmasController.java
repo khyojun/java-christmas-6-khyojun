@@ -25,6 +25,7 @@ public class ChristmasController {
     public void startOrder() {
         Integer date = inputDateProcess();
         Map<String, Integer> menuInfo = inputMenuProcess();
+        outputView.printBeforeNotifyBenefit(date);
 
 
     }
