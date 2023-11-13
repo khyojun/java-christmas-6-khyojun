@@ -6,7 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class MenuValidator {
 
@@ -22,10 +24,36 @@ public class MenuValidator {
             validateMenuDuplicate(menuInfo, firstSplitByComma.size());
             validateInMenu(menuInfo);
             validateMenuTotal(menuInfo);
+            validateOnlyBeverage(menuInfo);
         } catch (IllegalArgumentException error) {
             throw new IllegalArgumentException(error.getMessage());
         }
     }
+
+    private void validateOnlyBeverage(Map<String, Integer> menuInfo) {
+        List<Menu> values = List.of(Menu.values());
+        List<String> beverage = values.stream().filter(m -> m.getMenuCategory().equals("BEVERAGE")).map(
+                Menu::getMenuName)
+            .toList();
+        if(isMenuHasOnlyBeverage(menuInfo, beverage)){
+            throw new IllegalArgumentException("[ERROR] Only Beverage");
+        }
+    }
+
+    private boolean isMenuHasOnlyBeverage(Map<String, Integer> menuInfo, List<String> beverage) {
+        return countMenuBeverage(menuInfo, beverage) == menuInfo.size();
+    }
+
+    private int countMenuBeverage(Map<String, Integer> menuInfo, List<String> beverage) {
+        int count=0;
+        for (String menuName : menuInfo.keySet()) {
+            if(beverage.contains(menuName)){
+                count++;
+            }
+        }
+        return count;
+    }
+
 
     private void validateMenuTotal(Map<String, Integer> menuInfo) {
         int total=0;
