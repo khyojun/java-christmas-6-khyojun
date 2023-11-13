@@ -16,23 +16,25 @@ public class ChristmasController {
         this.inputView = inputView;
         this.outputView = outputView;
         this.validator = new Validator();
-
     }
 
 
     public void startOrder() {
 
-        inputDateProcess();
+        Integer date = inputDateProcess();
 
 
     }
 
-    private void inputDateProcess() {
+    private Integer inputDateProcess() {
         try {
             outputView.beforeInputDate();
-            validator.dateValidate(inputView.readDate());
+            String inputDate = inputView.readDate();
+            validator.dateValidate(inputDate);
+            return Integer.parseInt(inputDate);
         }catch (IllegalArgumentException error){
             outputView.printError(error.getMessage());
+            return inputDateProcess();
         }
     }
 }

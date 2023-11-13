@@ -1,9 +1,17 @@
 package christmas.util;
 
+
 public class Validator {
 
-    public void dateValidate(String input){
+    private final DateValidator dateValidator;
 
+    public Validator() {
+        this.dateValidator = new DateValidator();
+
+    }
+
+    public void dateValidate(String inputDate){
+        dateValidator.validate(inputDate);
     }
 
 
