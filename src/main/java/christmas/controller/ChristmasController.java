@@ -22,9 +22,17 @@ public class ChristmasController {
 
     public void startOrder() {
 
-        outputView.beforeInputDate();
-        validator.dateValidate(inputView.readDate());
+        inputDateProcess();
 
 
+    }
+
+    private void inputDateProcess() {
+        try {
+            outputView.beforeInputDate();
+            validator.dateValidate(inputView.readDate());
+        }catch (IllegalArgumentException error){
+            outputView.printError(error.getMessage());
+        }
     }
 }

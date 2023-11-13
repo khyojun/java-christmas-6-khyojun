@@ -1,5 +1,7 @@
 package christmas.view;
 
+import camp.nextstep.edu.missionutils.Console;
+
 public class InputView {
 
     private static InputView instance;
@@ -11,5 +13,9 @@ public class InputView {
         if(instance==null)
             instance = new InputView();
         return instance;
+    }
+
+    public String readDate() {
+        return Console.readLine();
     }
 }
