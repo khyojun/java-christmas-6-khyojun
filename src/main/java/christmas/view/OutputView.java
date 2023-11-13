@@ -1,5 +1,6 @@
 package christmas.view;
 
+import christmas.domain.BenefitStatus;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -45,8 +46,47 @@ public class OutputView {
         System.out.printf("%d원\n", totalPrice);
     }
 
-    public void printGiftProcess(String message) {
+    public void printGiftProcess(boolean gifted) {
         System.out.println("<증정 메뉴>");
-        System.out.println(message);
+        if(gifted){
+            System.out.println("샴페인 1개");
+            return;
+        }
+        System.out.println("없음");
     }
+
+    public void printBenefit(BenefitStatus benefitStatus) {
+        if(benefitStatus.isNone()){
+            printNothng();
+        }
+        printBenefitProcess(benefitStatus);
+    }
+
+    private void printBenefitProcess(BenefitStatus benefitStatus) {
+        // 화폐단위 고치기 xxx,xxx 단위로
+        if(benefitStatus.getdDaySalePrice()<0){
+            System.out.printf("크리스마스 디데이 할인: %d\n", benefitStatus.getdDaySalePrice());
+        }
+        if(benefitStatus.getWeekSaleStatus().getSalePrice()<0){
+            System.out.printf("%s: %d\n", benefitStatus.getWeekSaleStatus().getWeekDay(), benefitStatus.getWeekSaleStatus().getSalePrice());
+        }
+        if(benefitStatus.getSpecialDatePrice()<0){
+            System.out.printf("특별 할인: %d\n", benefitStatus.getSpecialDatePrice());
+        }
+        if(benefitStatus.getGiftSalePrice()<0){
+            System.out.printf("증정 이벤트: %d원", benefitStatus.getGiftSalePrice());
+        }
+    }
+
+
+    //크리스마스 디데이 할인: -1,200원
+    //평일 할인: -4,046원
+    //특별 할인: -1,000원
+    //증정 이벤트: -25,000원
+    private void printNothng() {
+        System.out.println("<혜택 내역>");
+        System.out.println("없음");
+    }
+
+
 }
