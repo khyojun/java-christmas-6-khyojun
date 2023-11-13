@@ -1,5 +1,6 @@
 package christmas.controller;
 
+import christmas.domain.BenefitStatus;
 import christmas.service.MenuService;
 import christmas.util.Validator;
 import christmas.view.InputView;
@@ -11,12 +12,12 @@ import java.util.Map;
 public class ChristmasController {
 
 
-    private InputView inputView;
-    private OutputView outputView;
+    private final InputView inputView;
+    private final OutputView outputView;
 
-    private Validator validator;
+    private final Validator validator;
 
-    private MenuService menuService;
+    private final MenuService menuService;
 
     public ChristmasController(InputView inputView, OutputView outputView) {
         this.inputView = inputView;
@@ -33,13 +34,16 @@ public class ChristmasController {
         outputView.printOrderMenu(menuInfo);
         long calculateTotalMoney = menuService.calculateBeforeBenefit(menuInfo);
         outputView.printBeforeBenefitMoney(calculateTotalMoney);
-
-        // 증정선물 관련 값 비교 증정 이벤트: 할인 전 총주문 금액이 12만 원 이상일 때, 샴페인 1개 증정
-
         outputView.printGiftProcess(menuService.giftService(calculateTotalMoney));
+        BenefitStatus benefitStatus = recordBenefitStatus(calculateTotalMoney,
+                date, menuInfo);
+        outputView.printBenefit(benefitStatus);
 
+    }
 
-
+    private BenefitStatus recordBenefitStatus(long calculateTotalMoney, Integer date, Map<String, Integer> menuInfo) {
+        return menuService.benefitCalculate(date, menuInfo,
+            calculateTotalMoney);
     }
 
     private Map<String, Integer> inputMenuProcess() {

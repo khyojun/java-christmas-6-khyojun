@@ -1,11 +1,20 @@
 package christmas.service;
 
+import christmas.domain.BenefitStatus;
 import christmas.domain.Menu;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
 public class MenuService {
+
+
+
+    private final BenefitService benefitService;
+
+    public MenuService() {
+        this.benefitService = new BenefitService();
+    }
 
     public long calculateBeforeBenefit(Map<String, Integer> menuInfo) {
         long total=0L;
@@ -19,10 +28,16 @@ public class MenuService {
         return total;
     }
 
-    public String giftService(long calculateTotalMoney) {
-        if(calculateTotalMoney>1200000){
-            return "샴페인 1개";
+    public boolean giftService(long calculateTotalMoney) {
+        return calculateTotalMoney > 1200000;
+    }
+
+    public BenefitStatus benefitCalculate(Integer date, Map<String, Integer> menuInfo, long calculatedMoney) {
+        if(calculatedMoney < 10000){
+            BenefitStatus benefitStatus = new BenefitStatus(0, null, 0, 0);
+            benefitStatus.hasNothing();
+            return benefitStatus;
         }
-        return "없음";
+        return benefitService.checkBenefit(date,menuInfo, calculatedMoney);
     }
 }
