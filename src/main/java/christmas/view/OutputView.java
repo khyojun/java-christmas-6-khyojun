@@ -1,5 +1,8 @@
 package christmas.view;
 
+import java.util.Map;
+import java.util.Map.Entry;
+
 public class OutputView {
 
     private static OutputView instance;
@@ -27,6 +30,13 @@ public class OutputView {
     }
 
     public void printBeforeNotifyBenefit(Integer date) {
-        System.out.printf("12월 %d일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!\n", date);
+        System.out.printf("12월 %d일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!\n\n", date);
+    }
+
+    public void printOrderMenu(Map<String, Integer> menuInfo) {
+        System.out.println("<주문 메뉴>");
+        for (Entry<String, Integer> menuEntry : menuInfo.entrySet()) {
+            System.out.printf("%s %d개\n", menuEntry.getKey(), menuEntry.getValue());
+        }
     }
 }
