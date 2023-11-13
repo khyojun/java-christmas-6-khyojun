@@ -1,5 +1,6 @@
 package christmas.controller;
 
+import christmas.service.MenuService;
 import christmas.util.Validator;
 import christmas.view.InputView;
 import christmas.view.OutputView;
@@ -15,10 +16,13 @@ public class ChristmasController {
 
     private Validator validator;
 
+    private MenuService menuService;
+
     public ChristmasController(InputView inputView, OutputView outputView) {
         this.inputView = inputView;
         this.outputView = outputView;
         this.validator = new Validator();
+        this.menuService = new MenuService();
     }
 
 
@@ -27,6 +31,7 @@ public class ChristmasController {
         Map<String, Integer> menuInfo = inputMenuProcess();
         outputView.printBeforeNotifyBenefit(date);
         outputView.printOrderMenu(menuInfo);
+        outputView.printBeforeBenefitMoney(menuService.calculateBeforeBenefit(menuInfo));
 
 
     }
