@@ -69,9 +69,9 @@ public class OutputView {
         System.out.printf(STANDARD_MONEY_FORMAT, changeFormat(totalPrice));
     }
 
-    public void printGiftProcess(boolean gifted) {
+    public void printGiftProcess(long giftPrice) {
         System.out.println(NOTIFY_BEFORE_GIFT_PROCESS);
-        if (gifted) {
+        if (giftPrice>0) {
             System.out.println(GIFT);
             return;
         }
