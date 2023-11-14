@@ -20,13 +20,12 @@ public class MenuService {
     }
 
     public long calculateBeforeBenefit(Map<String, Integer> menuInfo) {
-        long total = 0L;
         List<Menu> menus = List.of(Menu.values());
-        total = calculateTotalMenuPrice(menuInfo, menus, total);
-        return total;
+        return calculateTotalMenuPrice(menuInfo, menus);
     }
 
-    private long calculateTotalMenuPrice(Map<String, Integer> menuInfo, List<Menu> menus, long total) {
+    private long calculateTotalMenuPrice(Map<String, Integer> menuInfo, List<Menu> menus) {
+        long total=0L;
         for (Menu menu : menus) {
             for (Entry<String, Integer> menuEntry : menuInfo.entrySet()) {
                 if (menu.getMenuName().equals(menuEntry.getKey())) {
@@ -60,6 +59,6 @@ public class MenuService {
     }
 
     public String badgeService(BenefitStatus benefitStatus) {
-        return benefitService.decideBadge(benefitStatus);
+        return benefitService.decideBadge(totalBenefitPrice(benefitStatus));
     }
 }

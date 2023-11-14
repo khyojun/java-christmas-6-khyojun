@@ -10,6 +10,10 @@ public class BenefitService {
 
     private final SaleService saleService = new SaleService();
 
+    private final BadgeService badgeService = new BadgeService();
+
+    private final TotalCalculateService totalCalculateService = new TotalCalculateService();
+
 
     public BenefitStatus checkBenefit(Integer date, Map<String, Integer> menuInfo, long beforeBenefitMoney) {
         SaleStatus saleStatus = saleService.saleCalculate(date, menuInfo);
@@ -20,38 +24,24 @@ public class BenefitService {
     }
 
     private long totalBenefitPrice(BenefitStatus benefitStatus) {
-        SaleStatus saleStatus = benefitStatus.getSaleStatus();
-        return benefitStatus.getGiftBenefitPrice()+saleStatus.getdDaySalePrice()+saleStatus.getStarDatePrice()+saleStatus.getWeekSaleStatus().getSalePrice();
+        return totalCalculateService.calculateBenefit(benefitStatus);
+    }
+
+    public long totalBenefit(BenefitStatus benefitStatus) {
+        return totalBenefitPrice(benefitStatus);
     }
 
 
-    private long calculateGiftBenefit(long beforeBenefitMoney) {
-        if(beforeBenefitMoney > 120000) {
+    private long calculateGiftBenefit(long totalMenuPrice) {
+        if(totalMenuPrice > 120000) {
             return Menu.BEVERAGE_CHAMPAGNE.getPrice() * -1;
         }
         return 0L;
     }
 
 
-    public String decideBadge(BenefitStatus benefitStatus) {
-        SaleStatus saleStatus = benefitStatus.getSaleStatus();
-        long allSalePrice = saleStatus.getdDaySalePrice() + saleStatus.getStarDatePrice()
-            + saleStatus.getWeekSaleStatus().getSalePrice() + benefitStatus.getGiftBenefitPrice();
-        if (allSalePrice <= -20000) {
-            return "산타";
-        }
-        if (allSalePrice <= -10000) {
-            return "트리";
-        }
-        if (allSalePrice <= -5000) {
-            return "별";
-        }
-        return "없음";
+    public String decideBadge(long totalBenefit) {
+        return badgeService.decideBadge(totalBenefit);
     }
 
-    public long totalBenefit(BenefitStatus benefitStatus) {
-        SaleStatus saleStatus = benefitStatus.getSaleStatus();
-        return saleStatus.getWeekSaleStatus().getSalePrice() + benefitStatus.getGiftBenefitPrice()
-            + saleStatus.getdDaySalePrice() + saleStatus.getStarDatePrice();
-    }
 }

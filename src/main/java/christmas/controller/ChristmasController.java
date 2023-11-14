@@ -14,9 +14,7 @@ public class ChristmasController {
 
     private final InputView inputView;
     private final OutputView outputView;
-
     private final Validator validator;
-
     private final MenuService menuService;
 
     public ChristmasController(InputView inputView, OutputView outputView) {
