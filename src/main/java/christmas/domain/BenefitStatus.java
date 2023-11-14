@@ -2,10 +2,10 @@ package christmas.domain;
 
 public class BenefitStatus {
 
-    private long dDaySalePrice;
-    private WeekSaleStatus weekSalePrice;
-    private long specialSalePrice;
-    private long starDatePrice;
+    private final long dDaySalePrice;
+    private final WeekSaleStatus weekSalePrice;
+    private final long specialSalePrice;
+    private final long starDatePrice;
 
 
 
@@ -20,10 +20,15 @@ public class BenefitStatus {
     }
 
     public long getSpecialDatePrice() {
-        return starDatePrice;
+        return this.specialSalePrice;
     }
+
+    public long getStarDatePrice() {
+        return this.starDatePrice;
+    }
+
     public long getdDaySalePrice() {
-        return dDaySalePrice;
+        return this.dDaySalePrice;
     }
 
     public long getGiftSalePrice() {
@@ -31,7 +36,7 @@ public class BenefitStatus {
     }
 
     public WeekSaleStatus getWeekSaleStatus() {
-        return weekSalePrice;
+        return this.weekSalePrice;
     }
 
     public boolean isNone(){
