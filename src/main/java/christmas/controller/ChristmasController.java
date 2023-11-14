@@ -40,7 +40,7 @@ public class ChristmasController {
         outputView.printBenefit(benefitStatus);
         outputView.printTotalSalePrice(menuService.totalSalePrice(benefitStatus));
         outputView.printAfterSalePrice(menuService.afterSalePrice(calculateTotalMoney, benefitStatus));
-
+        outputView.printBadge(menuService.badgeService(benefitStatus));
     }
 
     private BenefitStatus recordBenefitStatus(long calculateTotalMoney, Integer date, Map<String, Integer> menuInfo) {

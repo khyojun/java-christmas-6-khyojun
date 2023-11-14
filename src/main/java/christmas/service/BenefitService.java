@@ -19,25 +19,28 @@ public class BenefitService {
     private List<Integer> starDate = List.of(3, 10, 17, 24, 25, 31);
 
     public BenefitStatus checkBenefit(Integer date, Map<String, Integer> menuInfo, long beforeBenefitMoney) {
-        long salePrice = 0;
         long starDatePrice= 0L;
         int weekDayValue = LocalDate.of(year, month, date).getDayOfWeek().getValue();
         long ddayBenefit = calculateDdayBenefit(date);
         WeekSaleStatus weekBenefit = calculateWeekBenefit(menuInfo, weekDayValue);
-        long specialBenefit = calculateSpecialBenefit(beforeBenefitMoney);
-        if(starDate.contains(date)){
-            starDatePrice -= 1000;
-        }
-        salePrice = ddayBenefit + weekBenefit.getSalePrice() + specialBenefit+ starDatePrice;
+        long specialBenefit = calculateGiftBenefit(beforeBenefitMoney);
+        starDatePrice = checkStarDateSale(date, starDatePrice);
+        long salePrice = ddayBenefit + weekBenefit.getSalePrice() + specialBenefit+ starDatePrice;
         BenefitStatus benefitStatus = new BenefitStatus(ddayBenefit, weekBenefit, specialBenefit, starDatePrice);
-
 
         if(salePrice ==0)
             benefitStatus.hasNothing();
         return benefitStatus;
     }
 
-    private long calculateSpecialBenefit(long beforeBenefitMoney) {
+    private long checkStarDateSale(Integer date, long starDatePrice) {
+        if(starDate.contains(date)){
+            starDatePrice = 1000 * -1;
+        }
+        return starDatePrice;
+    }
+
+    private long calculateGiftBenefit(long beforeBenefitMoney) {
         if(beforeBenefitMoney > 120000) {
             return Menu.BEVERAGE_CHAMPAGNE.getPrice() * -1;
         }

@@ -44,11 +44,22 @@ public class MenuService {
 
     public long totalSalePrice(BenefitStatus benefitStatus) {
         return benefitStatus.getWeekSaleStatus().getSalePrice() + benefitStatus.getGiftSalePrice()
-            + benefitStatus.getdDaySalePrice() + benefitStatus.getSpecialDatePrice();
+            + benefitStatus.getdDaySalePrice() + benefitStatus.getStarDatePrice();
     }
 
     public long afterSalePrice(long totalMenuPrice, BenefitStatus benefitStatus) {
         return totalMenuPrice + benefitStatus.getWeekSaleStatus().getSalePrice()
-            + benefitStatus.getdDaySalePrice() + benefitStatus.getSpecialDatePrice();
+            + benefitStatus.getdDaySalePrice() + benefitStatus.getStarDatePrice();
+    }
+
+    public String badgeService(BenefitStatus benefitStatus) {
+        long allSalePrice = benefitStatus.getdDaySalePrice() + benefitStatus.getStarDatePrice() + benefitStatus.getWeekSaleStatus().getSalePrice() + benefitStatus.getGiftSalePrice();
+        if(allSalePrice <= -20000)
+            return "산타";
+        if(allSalePrice <= -10000)
+            return "트리";
+        if(allSalePrice <= -5000)
+            return "별";
+        return "없음";
     }
 }
