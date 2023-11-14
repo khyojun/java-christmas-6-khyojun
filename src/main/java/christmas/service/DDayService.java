@@ -9,7 +9,7 @@ public class DDayService {
     }
 
     private long calculate(Integer date) {
-        if (date < 25) {
+        if (date <= 25) {
             return -1000 + (date - FIRST_DAY) * 100L * -1;
         }
         return 0;
