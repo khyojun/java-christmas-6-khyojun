@@ -61,7 +61,13 @@ class MenuValidatorTest {
             .hasMessageContaining("[ERROR]");
     }
 
-
+    @ParameterizedTest
+    @DisplayName("메뉴 입력이 잘못된 경우! - '-' 갯수가 옳지 않게 온 경우")
+    @ValueSource(strings = {"제로콜라--1", "아이스크림--4"})
+    void validateWrongMenuCountNegative(String inputMenu){
+        Assertions.assertThatThrownBy(() -> menuValidator.validate(inputMenu)).isInstanceOf(IllegalArgumentException.class)
+            .hasMessageContaining("[ERROR]");
+    }
 
 
 
