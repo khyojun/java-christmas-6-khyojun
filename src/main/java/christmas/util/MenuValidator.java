@@ -2,11 +2,10 @@ package christmas.util;
 
 import static christmas.constant.Delimiter.COMMA;
 import static christmas.constant.Delimiter.Hyphen;
+import static christmas.constant.ErrorMessage.MENU;
 import static christmas.constant.MenuConstant.MENU_LIMIT;
 import static christmas.constant.MenuConstant.MENU_MIN_NUMBER;
 
-import christmas.constant.Delimiter;
-import christmas.constant.MenuConstant;
 import christmas.domain.Menu;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,6 +17,8 @@ import java.util.regex.Pattern;
 public class MenuValidator {
 
     private static final String MENU_PATTERN = "^[A-Za-z가-힣]+-+[\\d]+$";
+
+    private static final String RESTRICT_ONLY_CATEGORY = "BEVERAGE";
 
 
     public void validate(String inputMenu) {
@@ -37,7 +38,8 @@ public class MenuValidator {
 
     private void validateOnlyBeverage(Map<String, Integer> menuInfo) {
         List<Menu> values = List.of(Menu.values());
-        List<String> beverage = values.stream().filter(m -> m.getMenuCategory().equals("BEVERAGE"))
+        List<String> beverage = values.stream().filter(m -> m.getMenuCategory().equals(
+                RESTRICT_ONLY_CATEGORY))
             .map(
                 Menu::getMenuName)
             .toList();
@@ -92,7 +94,7 @@ public class MenuValidator {
     private void validateMenuCountWrongNumber(Map<String, Integer> menuInfo) {
         for (Entry<String, Integer> nowMenuInfo : menuInfo.entrySet()) {
             if (nowMenuInfo.getValue() < MENU_MIN_NUMBER.getNumber() || nowMenuInfo.getValue() > MENU_LIMIT.getNumber()) {
-                throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+                throw new IllegalArgumentException(MENU.getMessage());
             }
         }
     }
@@ -109,7 +111,7 @@ public class MenuValidator {
 
     private void validateMenuDuplicate(Map<String, Integer> menuInfo, int size) {
         if (menuInfo.size() != size) {
-            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+            throw new IllegalArgumentException(MENU.getMessage());
         }
 
     }
@@ -118,7 +120,7 @@ public class MenuValidator {
     private void validateFormat(List<String> splitInputMenus) {
         for (String splitInputMenu : splitInputMenus) {
             if (isNotMatchFormat(splitInputMenu)) {
-                throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+                throw new IllegalArgumentException(MENU.getMessage());
             }
         }
 

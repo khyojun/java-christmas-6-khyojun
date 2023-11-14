@@ -3,6 +3,8 @@ package christmas.util;
 import static christmas.constant.DateConstant.FIRST_DAY;
 import static christmas.constant.DateConstant.LAST_DAY;
 
+import christmas.constant.ErrorMessage;
+
 
 public class DateValidator{
 
@@ -12,7 +14,7 @@ public class DateValidator{
             validateNumber(inputDate);
             validateRange(Integer.parseInt(inputDate));
         }catch (IllegalArgumentException dateError){
-            throw new IllegalArgumentException("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
+            throw new IllegalArgumentException(ErrorMessage.DATE.getMessage());
         }
     }
 
