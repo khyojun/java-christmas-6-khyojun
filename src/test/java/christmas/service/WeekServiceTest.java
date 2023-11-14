@@ -27,6 +27,26 @@ public class WeekServiceTest {
         Assertions.assertThat(weekService.calculateWeekBenefit(menuInfo,date).getSalePrice()).isEqualTo(-4046);
     }
 
+    @ParameterizedTest
+    @DisplayName("평일일 때의 경우")
+    @MethodSource("weekendDayCase")
+    void weekendDayTest(Map<String, Integer> menuInfo, Integer date) {
+        Assertions.assertThat(weekService.calculateWeekBenefit(menuInfo,date).getSalePrice()).isEqualTo(-6069);
+    }
+
+
+    static Stream<Arguments> weekendDayCase() {
+        return Stream.of(
+            Arguments.arguments(new HashMap() {{
+                put("아이스크림", 2);
+                put("바비큐립", 3);
+            }}, 1),
+            Arguments.arguments(new HashMap() {{
+                put("아이스크림", 2);
+                put("바비큐립", 3);
+            }}, 2)
+        );
+    }
 
     static Stream<Arguments> weekDayCase() {
         return Stream.of(
