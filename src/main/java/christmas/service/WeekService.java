@@ -1,5 +1,9 @@
 package christmas.service;
 
+import static christmas.constant.DateConstant.MONTH;
+import static christmas.constant.DateConstant.YEAR;
+
+import christmas.constant.DateConstant;
 import christmas.domain.Menu;
 import christmas.domain.WeekSaleStatus;
 import java.time.LocalDate;
@@ -8,9 +12,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 public class WeekService {
-
-    private static final int year = 2023;
-    private static final int month = 12;
 
     private static final String MAIN_MENU = "MAIN";
     private static final String DESERT_MENU = "DESERT";
@@ -24,7 +25,7 @@ public class WeekService {
     }
 
     private WeekSaleStatus calculate(Map<String, Integer> menuInfo, int date) {
-        int value = LocalDate.of(year, month, date).getDayOfWeek().getValue();
+        int value = LocalDate.of(YEAR.getDateNumber(), MONTH.getDateNumber(), date).getDayOfWeek().getValue();
         if (value == 5 || value == 6) {
             return new WeekSaleStatus(checkBenefitMenu(menuInfo, MAIN_MENU), WEEKEND_SALE);
         }

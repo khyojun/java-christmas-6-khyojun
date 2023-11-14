@@ -1,6 +1,10 @@
 package christmas.service;
 
 
+import static christmas.constant.BadgeConstant.SANTA_BADGE;
+import static christmas.constant.BadgeConstant.STAR_BADGE;
+import static christmas.constant.BadgeConstant.TREE_BADGE;
+
 
 public class BadgeService {
 
@@ -9,14 +13,14 @@ public class BadgeService {
     }
 
     private String decide(long totalBenefitPrice) {
-        if (totalBenefitPrice <= -20000) {
-            return "산타";
+        if (totalBenefitPrice <= SANTA_BADGE.getSalePrice()) {
+            return SANTA_BADGE.getBadgeName();
         }
-        if (totalBenefitPrice <= -10000) {
-            return "트리";
+        if (totalBenefitPrice <= TREE_BADGE.getSalePrice()) {
+            return TREE_BADGE.getBadgeName();
         }
-        if (totalBenefitPrice <= -5000) {
-            return "별";
+        if (totalBenefitPrice <= STAR_BADGE.getSalePrice()) {
+            return STAR_BADGE.getBadgeName();
         }
         return "없음";
     }

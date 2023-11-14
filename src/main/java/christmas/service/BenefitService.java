@@ -1,5 +1,6 @@
 package christmas.service;
 
+import christmas.constant.MoneyConstant;
 import christmas.domain.BenefitStatus;
 import christmas.domain.Menu;
 import christmas.domain.SaleStatus;
@@ -38,10 +39,10 @@ public class BenefitService {
 
 
     private long calculateGiftBenefit(long totalMenuPrice) {
-        if(totalMenuPrice > 120000) {
+        if(totalMenuPrice > MoneyConstant.ACCEPT_GIFT_MIN_MONEY.getMoney()) {
             return Menu.BEVERAGE_CHAMPAGNE.getPrice() * -1;
         }
-        return 0L;
+        return 0;
     }
 
 

@@ -1,5 +1,9 @@
 package christmas.util;
 
+import static christmas.constant.DateConstant.FIRST_DAY;
+import static christmas.constant.DateConstant.LAST_DAY;
+
+
 public class DateValidator{
 
 
@@ -13,7 +17,7 @@ public class DateValidator{
     }
 
     private void validateRange(Integer convertedInputDate) {
-        if(convertedInputDate < 1 ||  convertedInputDate > 31)
+        if(convertedInputDate < FIRST_DAY.getDateNumber() ||  convertedInputDate > LAST_DAY.getDateNumber())
             throw new IllegalArgumentException();
 
     }

@@ -1,5 +1,8 @@
 package christmas.service;
 
+import static christmas.constant.MoneyConstant.ACCEPT_GIFT_MIN_MONEY;
+import static christmas.constant.MoneyConstant.BENEFIT_MINIMUM_MONEY;
+
 import christmas.domain.BenefitStatus;
 import christmas.domain.Menu;
 import christmas.domain.SaleStatus;
@@ -37,12 +40,12 @@ public class MenuService {
     }
 
     public boolean giftService(long calculateTotalMoney) {
-        return calculateTotalMoney > 120000;
+        return calculateTotalMoney > ACCEPT_GIFT_MIN_MONEY.getMoney();
     }
 
     public BenefitStatus benefitCalculate(Integer date, Map<String, Integer> menuInfo,
         long calculatedMoney) {
-        if (calculatedMoney < 10000) {
+        if (calculatedMoney < BENEFIT_MINIMUM_MONEY.getMoney()) {
             BenefitStatus benefitStatus = BenefitStatus.nothing();
             benefitStatus.hasNothing();
             return benefitStatus;
