@@ -24,9 +24,17 @@ class DateValidatorTest {
     @ValueSource(strings = {"a", "b", "!2"})
     void validateNotNumber(String inputDate) {
         Assertions.assertThatThrownBy(() -> dateValidator.validate(inputDate)).isInstanceOf(IllegalArgumentException.class)
-            .hasMessageContaining("[ERROR]");
+            .hasMessageContaining("[ERROR]" + );
     }
 
+
+    @ParameterizedTest
+    @DisplayName("날짜 입력이 잘못된 경우! - 숫자 입력시 범위가 1 - 31 사이의 숫자가 아닐 때")
+    @ValueSource(strings = {"-1", "32"})
+    void validateNotRange(String inputDate) {
+        Assertions.assertThatThrownBy(() -> dateValidator.validate(inputDate)).isInstanceOf(IllegalArgumentException.class)
+            .hasMessageContaining("[ERROR]");
+    }
 
 
 
