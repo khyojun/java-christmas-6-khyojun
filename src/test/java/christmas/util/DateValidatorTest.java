@@ -1,7 +1,9 @@
 package christmas.util;
 
+import static christmas.constant.ErrorMessage.DATE;
 import static org.junit.jupiter.api.Assertions.*;
 
+import christmas.constant.ErrorMessage;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -24,7 +26,7 @@ class DateValidatorTest {
     @ValueSource(strings = {"a", "b", "!2"})
     void validateNotNumber(String inputDate) {
         Assertions.assertThatThrownBy(() -> dateValidator.validate(inputDate)).isInstanceOf(IllegalArgumentException.class)
-            .hasMessageContaining("[ERROR]" + );
+            .hasMessageContaining(DATE.getMessage());
     }
 
 
@@ -33,7 +35,7 @@ class DateValidatorTest {
     @ValueSource(strings = {"-1", "32"})
     void validateNotRange(String inputDate) {
         Assertions.assertThatThrownBy(() -> dateValidator.validate(inputDate)).isInstanceOf(IllegalArgumentException.class)
-            .hasMessageContaining("[ERROR]");
+            .hasMessageContaining(DATE.getMessage());
     }
 
 
