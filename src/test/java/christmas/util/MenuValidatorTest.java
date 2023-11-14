@@ -37,6 +37,14 @@ class MenuValidatorTest {
             .hasMessageContaining("[ERROR]");
     }
 
+    @ParameterizedTest
+    @DisplayName("메뉴 형식 맞지 않게 입력한 경우!")
+    @ValueSource(strings = {"menu*4,menu-2", "4-menu,menu-5"})
+    void validateNoFormat(String inputMenu){
+        Assertions.assertThatThrownBy(() -> menuValidator.validate(inputMenu)).isInstanceOf(IllegalArgumentException.class)
+            .hasMessageContaining("[ERROR]");
+    }
+
 
 
 
