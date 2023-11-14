@@ -11,6 +11,12 @@ public class TotalCalculateService {
 
     private long calculate(BenefitStatus benefitStatus) {
         SaleStatus saleStatus = benefitStatus.getSaleStatus();
-        return benefitStatus.getGiftBenefitPrice()+saleStatus.getdDaySalePrice()+saleStatus.getStarDatePrice()+saleStatus.getWeekSaleStatus().getSalePrice();
+        return benefitStatus.getGiftBenefitPrice() + saleStatus.getdDaySalePrice()
+            + saleStatus.getStarDatePrice() + saleStatus.getWeekSaleStatus().getSalePrice();
+    }
+
+    public long calculateTotalSale(SaleStatus saleStatus) {
+        return saleStatus.getWeekSaleStatus().getSalePrice()
+            + saleStatus.getdDaySalePrice() + saleStatus.getStarDatePrice();
     }
 }

@@ -9,10 +9,13 @@ public class SaleService {
     private final WeekService weekService;
     private final StarDateService starDateService;
 
+    private final TotalCalculateService totalCalculateService;
+
     public SaleService() {
         this.dDayService = new DDayService();
         this.weekService = new WeekService();
         this.starDateService = new StarDateService();
+        this.totalCalculateService = new TotalCalculateService();
     }
 
     public SaleStatus saleCalculate(Integer date, Map<String, Integer> menuInfo) {
@@ -22,7 +25,6 @@ public class SaleService {
     }
 
     public long calculateTotalSalePrice(SaleStatus saleStatus) {
-        return saleStatus.getWeekSaleStatus().getSalePrice()
-            + saleStatus.getdDaySalePrice() + saleStatus.getStarDatePrice();
+        return totalCalculateService.calculateTotalSale(saleStatus);
     }
 }

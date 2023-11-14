@@ -8,12 +8,17 @@ import java.util.Map;
 public class BenefitService {
 
 
-    private final SaleService saleService = new SaleService();
+    private final SaleService saleService;
 
-    private final BadgeService badgeService = new BadgeService();
+    private final BadgeService badgeService;
 
-    private final TotalCalculateService totalCalculateService = new TotalCalculateService();
+    private final TotalCalculateService totalCalculateService;
 
+    public BenefitService() {
+        this.saleService = new SaleService();
+        this.badgeService = new BadgeService();
+        this.totalCalculateService = new TotalCalculateService();
+    }
 
     public BenefitStatus checkBenefit(Integer date, Map<String, Integer> menuInfo, long beforeBenefitMoney) {
         SaleStatus saleStatus = saleService.saleCalculate(date, menuInfo);
