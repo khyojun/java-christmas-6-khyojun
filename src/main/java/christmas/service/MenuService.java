@@ -9,7 +9,6 @@ import java.util.Map.Entry;
 public class MenuService {
 
 
-
     private final BenefitService benefitService;
 
     public MenuService() {
@@ -17,12 +16,13 @@ public class MenuService {
     }
 
     public long calculateBeforeBenefit(Map<String, Integer> menuInfo) {
-        long total=0L;
-        List<Menu> menus= List.of(Menu.values());
+        long total = 0L;
+        List<Menu> menus = List.of(Menu.values());
         for (Menu menu : menus) {
             for (Entry<String, Integer> menuEntry : menuInfo.entrySet()) {
-                if(menu.getMenuName().equals(menuEntry.getKey()))
-                    total+= (long) menu.getPrice() * menuEntry.getValue();
+                if (menu.getMenuName().equals(menuEntry.getKey())) {
+                    total += (long) menu.getPrice() * menuEntry.getValue();
+                }
             }
         }
         return total;
@@ -32,16 +32,23 @@ public class MenuService {
         return calculateTotalMoney > 120000;
     }
 
-    public BenefitStatus benefitCalculate(Integer date, Map<String, Integer> menuInfo, long calculatedMoney) {
-        if(calculatedMoney < 10000){
+    public BenefitStatus benefitCalculate(Integer date, Map<String, Integer> menuInfo,
+        long calculatedMoney) {
+        if (calculatedMoney < 10000) {
             BenefitStatus benefitStatus = new BenefitStatus(0, null, 0, 0);
             benefitStatus.hasNothing();
             return benefitStatus;
         }
-        return benefitService.checkBenefit(date,menuInfo, calculatedMoney);
+        return benefitService.checkBenefit(date, menuInfo, calculatedMoney);
     }
 
     public long totalSalePrice(BenefitStatus benefitStatus) {
-        return benefitStatus.getWeekSaleStatus().getSalePrice() + benefitStatus.getGiftSalePrice() + benefitStatus.getdDaySalePrice()+ benefitStatus.getSpecialDatePrice();
+        return benefitStatus.getWeekSaleStatus().getSalePrice() + benefitStatus.getGiftSalePrice()
+            + benefitStatus.getdDaySalePrice() + benefitStatus.getSpecialDatePrice();
+    }
+
+    public long afterSalePrice(long totalMenuPrice, BenefitStatus benefitStatus) {
+        return totalMenuPrice + benefitStatus.getWeekSaleStatus().getSalePrice()
+            + benefitStatus.getdDaySalePrice() + benefitStatus.getSpecialDatePrice();
     }
 }

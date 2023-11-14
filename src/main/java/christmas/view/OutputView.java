@@ -9,7 +9,7 @@ public class OutputView {
 
 
     private static final String FORMAT = "###,###,###,###";
-    private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat(FORMAT);
+    private static final DecimalFormat MONEY_FORMAT = new DecimalFormat(FORMAT);
 
 
     private static OutputView instance;
@@ -73,10 +73,10 @@ public class OutputView {
     }
 
     private void printBenefitProcess(BenefitStatus benefitStatus) {
-        printSalePrice(benefitStatus.getdDaySalePrice(), "크리스마스 디데이 할인: %s원\n", DECIMAL_FORMAT);
-        printWeekSalePrice(benefitStatus, DECIMAL_FORMAT);
-        printSalePrice(benefitStatus.getSpecialDatePrice(), "특별 할인: %s원\n", DECIMAL_FORMAT);
-        printSalePrice(benefitStatus.getGiftSalePrice(), "증정 이벤트: %s원\n", DECIMAL_FORMAT);
+        printSalePrice(benefitStatus.getdDaySalePrice(), "크리스마스 디데이 할인: %s원\n", MONEY_FORMAT);
+        printWeekSalePrice(benefitStatus, MONEY_FORMAT);
+        printSalePrice(benefitStatus.getSpecialDatePrice(), "특별 할인: %s원\n", MONEY_FORMAT);
+        printSalePrice(benefitStatus.getGiftSalePrice(), "증정 이벤트: %s원\n", MONEY_FORMAT);
     }
 
     private void printWeekSalePrice(BenefitStatus benefitStatus, DecimalFormat decimalFormat) {
@@ -101,8 +101,13 @@ public class OutputView {
 
     public void printTotalSalePrice(long totalSalePrice) {
         System.out.println("\n<총혜택 금액>");
-        System.out.printf("%s원\n", changeFormat(DECIMAL_FORMAT, totalSalePrice));
+        System.out.printf("%s원\n", changeFormat(MONEY_FORMAT, totalSalePrice));
     }
 
+
+    public void printAfterSalePrice(long calculateMoney) {
+        System.out.println("\n<할인 후 예상 결제 금액>");
+        System.out.printf("%s원\n", changeFormat(MONEY_FORMAT, calculateMoney));
+    }
 
 }
