@@ -2,6 +2,8 @@ package christmas.service;
 
 import christmas.domain.BenefitStatus;
 import christmas.domain.Menu;
+import christmas.domain.SaleStatus;
+import christmas.domain.WeekSaleStatus;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -11,8 +13,11 @@ public class MenuService {
 
     private final BenefitService benefitService;
 
+    private final SaleService saleService;
+
     public MenuService() {
         this.benefitService = new BenefitService();
+        this.saleService = new SaleService();
     }
 
     public long calculateBeforeBenefit(Map<String, Integer> menuInfo) {
@@ -35,31 +40,23 @@ public class MenuService {
     public BenefitStatus benefitCalculate(Integer date, Map<String, Integer> menuInfo,
         long calculatedMoney) {
         if (calculatedMoney < 10000) {
-            BenefitStatus benefitStatus = new BenefitStatus(0, null, 0, 0);
+            BenefitStatus benefitStatus = new BenefitStatus(
+                new SaleStatus(0, new WeekSaleStatus(0, ""), 0), 0);
             benefitStatus.hasNothing();
             return benefitStatus;
         }
         return benefitService.checkBenefit(date, menuInfo, calculatedMoney);
     }
 
-    public long totalSalePrice(BenefitStatus benefitStatus) {
-        return benefitStatus.getWeekSaleStatus().getSalePrice() + benefitStatus.getGiftSalePrice()
-            + benefitStatus.getdDaySalePrice() + benefitStatus.getStarDatePrice();
+    public long totalBenefitPrice(BenefitStatus benefitStatus) {
+        return benefitService.totalBenefit(benefitStatus);
     }
 
-    public long afterSalePrice(long totalMenuPrice, BenefitStatus benefitStatus) {
-        return totalMenuPrice + benefitStatus.getWeekSaleStatus().getSalePrice()
-            + benefitStatus.getdDaySalePrice() + benefitStatus.getStarDatePrice();
+    public long afterSalePrice(long totalMenuPrice, SaleStatus saleStatus) {
+        return totalMenuPrice + saleService.calculateTotalSalePrice(saleStatus);
     }
 
     public String badgeService(BenefitStatus benefitStatus) {
-        long allSalePrice = benefitStatus.getdDaySalePrice() + benefitStatus.getStarDatePrice() + benefitStatus.getWeekSaleStatus().getSalePrice() + benefitStatus.getGiftSalePrice();
-        if(allSalePrice <= -20000)
-            return "산타";
-        if(allSalePrice <= -10000)
-            return "트리";
-        if(allSalePrice <= -5000)
-            return "별";
-        return "없음";
+        return benefitService.decideBadge(benefitStatus);
     }
 }

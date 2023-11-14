@@ -13,7 +13,7 @@ public class BenefitService {
 
 
     public BenefitStatus checkBenefit(Integer date, Map<String, Integer> menuInfo, long beforeBenefitMoney) {
-        SaleStatus saleStatus = saleService.saleCalculate(date, menuInfo, beforeBenefitMoney);
+        SaleStatus saleStatus = saleService.saleCalculate(date, menuInfo);
         BenefitStatus benefitStatus = new BenefitStatus(saleStatus, calculateGiftBenefit(beforeBenefitMoney));
         if(totalBenefitPrice(benefitStatus)==0)
             benefitStatus.hasNothing();
@@ -48,5 +48,11 @@ public class BenefitService {
             return "별";
         }
         return "없음";
+    }
+
+    public long totalBenefit(BenefitStatus benefitStatus) {
+        SaleStatus saleStatus = benefitStatus.getSaleStatus();
+        return saleStatus.getWeekSaleStatus().getSalePrice() + benefitStatus.getGiftBenefitPrice()
+            + saleStatus.getdDaySalePrice() + saleStatus.getStarDatePrice();
     }
 }

@@ -1,5 +1,6 @@
 package christmas.service;
 
+import christmas.domain.BenefitStatus;
 import christmas.domain.Menu;
 import christmas.domain.SaleStatus;
 import christmas.domain.WeekSaleStatus;
@@ -18,7 +19,7 @@ public class SaleService {
 
     private List<Integer> starDate = List.of(3, 10, 17, 24, 25, 31);
 
-    public SaleStatus saleCalculate(Integer date, Map<String, Integer> menuInfo, long beforeBenefitMoney) {
+    public SaleStatus saleCalculate(Integer date, Map<String, Integer> menuInfo) {
         long ddaySalePrice = calculateDdayBenefit(date);
         WeekSaleStatus weekBenefit = calculateWeekBenefit(menuInfo, date);
         long starDateSalePrice = checkStarDateSale(date);
@@ -81,5 +82,8 @@ public class SaleService {
     }
 
 
-
+    public long calculateTotalSalePrice(SaleStatus saleStatus) {
+        return saleStatus.getWeekSaleStatus().getSalePrice()
+            + saleStatus.getdDaySalePrice() + saleStatus.getStarDatePrice();
+    }
 }
