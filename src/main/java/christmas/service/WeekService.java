@@ -21,6 +21,8 @@ public class WeekService {
     private static final int FRIDAY_WEEK_NUM = 5;
     private static final int SATURDAY_WEEK_NUM = 6;
 
+    private static final long PLUS_MONEY = 2023L;
+
 
     public WeekSaleStatus calculateWeekBenefit(Map<String, Integer> menuInfo, Integer date) {
         return calculate(menuInfo, date);
@@ -64,7 +66,7 @@ public class WeekService {
     private long calculateCategory(String menuName, long dateSalePrice,
         Entry<String, Integer> menuEntry) {
         if (menuName.equals(menuEntry.getKey())) {
-            dateSalePrice -= menuEntry.getValue() * 2023L;
+            dateSalePrice -= menuEntry.getValue() * PLUS_MONEY;
         }
         return dateSalePrice;
     }
