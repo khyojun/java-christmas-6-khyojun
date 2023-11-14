@@ -42,8 +42,8 @@ public class WeekServiceTest {
                 put("바비큐립", 3);
             }}, 1),
             Arguments.arguments(new HashMap() {{
-                put("아이스크림", 2);
-                put("바비큐립", 3);
+                put("초코케이크", 2);
+                put("해산물파스타", 3);
             }}, 2)
         );
     }
@@ -55,12 +55,12 @@ public class WeekServiceTest {
                 put("바비큐립", 3);
             }}, 3),
             Arguments.arguments(new HashMap() {{
-                put("아이스크림", 2);
-                put("바비큐립", 3);
+                put("초코케이크", 2);
+                put("티본스테이크", 3);
             }}, 4),
             Arguments.arguments(new HashMap() {{
                 put("아이스크림", 2);
-                put("바비큐립", 3);
+                put("해산물파스타", 3);
             }}, 7)
         );
     }
