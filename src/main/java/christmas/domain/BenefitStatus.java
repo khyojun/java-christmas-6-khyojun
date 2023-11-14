@@ -2,38 +2,25 @@ package christmas.domain;
 
 public class BenefitStatus {
 
-    private final long dDaySalePrice;
-    private final WeekSaleStatus weekSalePrice;
-    private final long giftPrice;
-    private final long starDatePrice;
+    private final SaleStatus saleStatus;
 
+    private final long giftBenefitPrice;
 
     private boolean none;
 
-    public BenefitStatus(long dDaySalePrice, WeekSaleStatus weekSaleStatus, long giftPrice,
-        long starDatePrice) {
-        this.dDaySalePrice = dDaySalePrice;
-        this.weekSalePrice = weekSaleStatus;
-        this.giftPrice = giftPrice;
-        this.starDatePrice = starDatePrice;
+    public BenefitStatus(SaleStatus saleStatus, long giftBenefitPrice) {
+        this.saleStatus = saleStatus;
+        this.giftBenefitPrice = giftBenefitPrice;
         this.none = false;
     }
 
 
-    public long getStarDatePrice() {
-        return this.starDatePrice;
+    public SaleStatus getSaleStatus() {
+        return saleStatus;
     }
 
-    public long getdDaySalePrice() {
-        return this.dDaySalePrice;
-    }
-
-    public long getGiftSalePrice() {
-        return giftPrice;
-    }
-
-    public WeekSaleStatus getWeekSaleStatus() {
-        return this.weekSalePrice;
+    public long getGiftBenefitPrice() {
+        return giftBenefitPrice;
     }
 
     public boolean isNone() {
