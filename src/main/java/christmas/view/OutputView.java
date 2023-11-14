@@ -51,7 +51,7 @@ public class OutputView {
 
     public void printBeforeBenefitMoney(long totalPrice) {
         System.out.println("\n<할인 전 총주문 금액>");
-        System.out.printf("%d원\n", totalPrice);
+        System.out.printf("%s원\n", changeFormat(totalPrice));
     }
 
     public void printGiftProcess(boolean gifted) {
@@ -73,26 +73,26 @@ public class OutputView {
     }
 
     private void printBenefitProcess(BenefitStatus benefitStatus) {
-        printSalePrice(benefitStatus.getdDaySalePrice(), "크리스마스 디데이 할인: %s원\n", MONEY_FORMAT);
-        printWeekSalePrice(benefitStatus, MONEY_FORMAT);
-        printSalePrice(benefitStatus.getSpecialDatePrice(), "특별 할인: %s원\n", MONEY_FORMAT);
-        printSalePrice(benefitStatus.getGiftSalePrice(), "증정 이벤트: %s원\n", MONEY_FORMAT);
+        printSalePrice(benefitStatus.getdDaySalePrice(), "크리스마스 디데이 할인: %s원\n");
+        printWeekSalePrice(benefitStatus);
+        printSalePrice(benefitStatus.getSpecialDatePrice(), "특별 할인: %s원\n");
+        printSalePrice(benefitStatus.getGiftSalePrice(), "증정 이벤트: %s원\n");
     }
 
-    private void printWeekSalePrice(BenefitStatus benefitStatus, DecimalFormat decimalFormat) {
+    private void printWeekSalePrice(BenefitStatus benefitStatus ) {
         if(benefitStatus.getWeekSaleStatus().getSalePrice()<0)
             System.out.printf("%s: %s원\n", benefitStatus.getWeekSaleStatus().getWeekDay(), changeFormat(
-                decimalFormat, benefitStatus.getWeekSaleStatus().getSalePrice()));
+                benefitStatus.getWeekSaleStatus().getSalePrice()));
     }
 
-    private void printSalePrice(long benefitStatus, String format, DecimalFormat decimalFormat) {
+    private void printSalePrice(long benefitStatus, String format) {
         if (benefitStatus < 0) {
-            System.out.printf(format, changeFormat(decimalFormat, benefitStatus));
+            System.out.printf(format, changeFormat(benefitStatus));
         }
     }
 
-    private String changeFormat(DecimalFormat decimalFormat, long salePrice) {
-        return decimalFormat.format(salePrice);
+    private String changeFormat(long salePrice) {
+        return MONEY_FORMAT.format(salePrice);
     }
 
     private void printNothng() {
@@ -101,13 +101,18 @@ public class OutputView {
 
     public void printTotalSalePrice(long totalSalePrice) {
         System.out.println("\n<총혜택 금액>");
-        System.out.printf("%s원\n", changeFormat(MONEY_FORMAT, totalSalePrice));
+        System.out.printf("%s원\n", changeFormat(totalSalePrice));
     }
 
 
     public void printAfterSalePrice(long calculateMoney) {
         System.out.println("\n<할인 후 예상 결제 금액>");
-        System.out.printf("%s원\n", changeFormat(MONEY_FORMAT, calculateMoney));
+        System.out.printf("%s원\n", changeFormat(calculateMoney));
+    }
+
+    public void printBadge(String badge) {
+        System.out.println("\n<12월 이벤트 배지>");
+        System.out.printf(badge);
     }
 
 }
