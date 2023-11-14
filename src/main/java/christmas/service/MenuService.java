@@ -30,10 +30,15 @@ public class MenuService {
     private long calculateTotalMenuPrice(Map<String, Integer> menuInfo, List<Menu> menus) {
         long total=0L;
         for (Menu menu : menus) {
-            for (Entry<String, Integer> menuEntry : menuInfo.entrySet()) {
-                if (menu.getMenuName().equals(menuEntry.getKey())) {
-                    total += (long) menu.getPrice() * menuEntry.getValue();
-                }
+            total = multiplyMenu(menuInfo, menu, total);
+        }
+        return total;
+    }
+
+    private long multiplyMenu(Map<String, Integer> menuInfo, Menu menu, long total) {
+        for (Entry<String, Integer> menuEntry : menuInfo.entrySet()) {
+            if (menu.getMenuName().equals(menuEntry.getKey())) {
+                total += (long) menu.getPrice() * menuEntry.getValue();
             }
         }
         return total;
