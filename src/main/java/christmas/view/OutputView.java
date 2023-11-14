@@ -75,7 +75,7 @@ public class OutputView {
     private void printBenefitProcess(BenefitStatus benefitStatus) {
         printSalePrice(benefitStatus.getdDaySalePrice(), "크리스마스 디데이 할인: %s원\n");
         printWeekSalePrice(benefitStatus);
-        printSalePrice(benefitStatus.getSpecialDatePrice(), "특별 할인: %s원\n");
+        printSalePrice(benefitStatus.getStarDatePrice(), "특별 할인: %s원\n");
         printSalePrice(benefitStatus.getGiftSalePrice(), "증정 이벤트: %s원\n");
     }
 
