@@ -1,6 +1,7 @@
 package christmas.service;
 
 import christmas.domain.Menu;
+import christmas.domain.SaleStatus;
 import christmas.domain.WeekSaleStatus;
 import java.time.LocalDate;
 import java.util.List;
@@ -17,14 +18,13 @@ public class SaleService {
 
     private List<Integer> starDate = List.of(3, 10, 17, 24, 25, 31);
 
-    public void saleCalculate(Integer date, Map<String, Integer> menuInfo, long beforeBenefitMoney) {
-        long ddatSalePrice = calculateDdayBenefit(date);
+    public SaleStatus saleCalculate(Integer date, Map<String, Integer> menuInfo, long beforeBenefitMoney) {
+        long ddaySalePrice = calculateDdayBenefit(date);
         WeekSaleStatus weekBenefit = calculateWeekBenefit(menuInfo, date);
-        long giftBenefit = calculateGiftBenefit(beforeBenefitMoney);
         long starDateSalePrice = checkStarDateSale(date);
+        return new SaleStatus(ddaySalePrice, weekBenefit, starDateSalePrice);
 
     }
-
 
     private long checkStarDateSale(Integer date) {
         if(starDate.contains(date)){
@@ -37,14 +37,6 @@ public class SaleService {
             return -1000 + (date - FIRST_DAY) * 100L * -1;
         }
         return 0;
-    }
-
-
-    private long calculateGiftBenefit(long beforeBenefitMoney) {
-        if(beforeBenefitMoney > 120000) {
-            return Menu.BEVERAGE_CHAMPAGNE.getPrice() * -1;
-        }
-        return 0L;
     }
 
     private WeekSaleStatus calculateWeekBenefit(Map<String, Integer> menuInfo, int date) {
@@ -71,7 +63,6 @@ public class SaleService {
 
     }
 
-
     private long findCategory(Map<String, Integer> menuInfo, String desertName,
         long dateSalePrice) {
         for (Entry<String, Integer> menuEntry : menuInfo.entrySet()) {
@@ -79,7 +70,6 @@ public class SaleService {
         }
         return dateSalePrice;
     }
-
 
 
     private long calculateCategory(String categoryName, long dateSalePrice,
