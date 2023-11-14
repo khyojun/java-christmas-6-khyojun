@@ -1,5 +1,9 @@
 package christmas.controller;
 
+import static christmas.constant.Delimiter.COMMA;
+import static christmas.constant.Delimiter.Hyphen;
+
+import christmas.constant.Delimiter;
 import christmas.domain.BenefitStatus;
 import christmas.service.MenuService;
 import christmas.util.Validator;
@@ -28,8 +32,7 @@ public class ChristmasController {
     public void startOrder() {
         Integer date = inputDateProcess();
         Map<String, Integer> menuInfo = inputMenuProcess();
-        outputView.printBeforeNotifyBenefit(date);
-        outputView.printOrderMenu(menuInfo);
+        printOrderMenu(date, menuInfo);
         long calculateTotalMoney = menuService.calculateBeforeBenefit(menuInfo);
         outputView.printBeforeBenefitMoney(calculateTotalMoney);
         outputView.printGiftProcess(menuService.giftService(calculateTotalMoney));
@@ -39,6 +42,11 @@ public class ChristmasController {
         outputView.printTotalSalePrice(menuService.totalBenefitPrice(benefitStatus));
         outputView.printAfterSalePrice(menuService.afterSalePrice(calculateTotalMoney, benefitStatus.getSaleStatus()));
         outputView.printBadge(menuService.badgeService(benefitStatus));
+    }
+
+    private void printOrderMenu(Integer date, Map<String, Integer> menuInfo) {
+        outputView.printBeforeNotifyBenefit(date);
+        outputView.printOrderMenu(menuInfo);
     }
 
     private BenefitStatus recordBenefitStatus(long calculateTotalMoney, Integer date, Map<String, Integer> menuInfo) {
@@ -61,9 +69,9 @@ public class ChristmasController {
 
     private Map<String, Integer> convertProcess(String inputMenu) {
         Map<String, Integer> menuInfo = new HashMap<>();
-        List<String> split = List.of(inputMenu.split(","));
+        List<String> split = List.of(inputMenu.split(COMMA.getDelimiter()));
         for (String s : split) {
-            List<String> seperateByHighPone = List.of(s.split("-"));
+            List<String> seperateByHighPone = List.of(s.split(Hyphen.getDelimiter()));
             menuInfo.put(seperateByHighPone.get(0), Integer.parseInt(seperateByHighPone.get(1)));
         }
         return menuInfo;
