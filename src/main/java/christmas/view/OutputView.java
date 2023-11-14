@@ -1,12 +1,18 @@
 package christmas.view;
 
 import christmas.domain.BenefitStatus;
+import java.text.DecimalFormat;
 import java.util.Map;
 import java.util.Map.Entry;
 
 public class OutputView {
 
+
+    private static final String FORMAT = "###,###,###,###";
+
     private static OutputView instance;
+
+
 
     private OutputView() {
     }
@@ -64,26 +70,29 @@ public class OutputView {
 
     private void printBenefitProcess(BenefitStatus benefitStatus) {
         System.out.println("<혜택 내역>");
-        // 화폐단위 고치기 xxx,xxx원 단위로
-        if(benefitStatus.getdDaySalePrice()<0){
-            System.out.printf("크리스마스 디데이 할인: %d\n", benefitStatus.getdDaySalePrice());
-        }
-        if(benefitStatus.getWeekSaleStatus().getSalePrice()<0){
-            System.out.printf("%s: %d\n", benefitStatus.getWeekSaleStatus().getWeekDay(), benefitStatus.getWeekSaleStatus().getSalePrice());
-        }
-        if(benefitStatus.getSpecialDatePrice()<0){
-            System.out.printf("특별 할인: %d\n", benefitStatus.getSpecialDatePrice());
-        }
-        if(benefitStatus.getGiftSalePrice()<0){
-            System.out.printf("증정 이벤트: %d원", benefitStatus.getGiftSalePrice());
+        DecimalFormat decimalFormat = new DecimalFormat(FORMAT);
+        printSalePrice(benefitStatus.getdDaySalePrice(), "크리스마스 디데이 할인: %s원\n", decimalFormat);
+        printWeekSalePrice(benefitStatus, decimalFormat);
+        printSalePrice(benefitStatus.getSpecialDatePrice(), "특별 할인: %s원\n", decimalFormat);
+        printSalePrice(benefitStatus.getGiftSalePrice(), "증정 이벤트: %s원", decimalFormat);
+    }
+
+    private void printWeekSalePrice(BenefitStatus benefitStatus, DecimalFormat decimalFormat) {
+        if(benefitStatus.getWeekSaleStatus().getSalePrice()<0)
+            System.out.printf("%s: %s원\n", benefitStatus.getWeekSaleStatus().getWeekDay(), changeFormat(
+                decimalFormat, benefitStatus.getWeekSaleStatus().getSalePrice()));
+    }
+
+    private void printSalePrice(long benefitStatus, String format, DecimalFormat decimalFormat) {
+        if (benefitStatus < 0) {
+            System.out.printf(format, changeFormat(decimalFormat, benefitStatus));
         }
     }
 
+    private String changeFormat(DecimalFormat decimalFormat, long salePrice) {
+        return decimalFormat.format(salePrice);
+    }
 
-    //크리스마스 디데이 할인: -1,200원
-    //평일 할인: -4,046원
-    //특별 할인: -1,000원
-    //증정 이벤트: -25,000원
     private void printNothng() {
         System.out.println("<혜택 내역>");
         System.out.println("없음");
