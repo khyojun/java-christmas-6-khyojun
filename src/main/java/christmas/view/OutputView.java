@@ -1,6 +1,7 @@
 package christmas.view;
 
 import christmas.domain.BenefitStatus;
+import christmas.domain.SaleStatus;
 import java.text.DecimalFormat;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -73,16 +74,17 @@ public class OutputView {
     }
 
     private void printBenefitProcess(BenefitStatus benefitStatus) {
-        printSalePrice(benefitStatus.getdDaySalePrice(), "크리스마스 디데이 할인: %s원\n");
-        printWeekSalePrice(benefitStatus);
-        printSalePrice(benefitStatus.getStarDatePrice(), "특별 할인: %s원\n");
-        printSalePrice(benefitStatus.getGiftSalePrice(), "증정 이벤트: %s원\n");
+        SaleStatus saleStatus = benefitStatus.getSaleStatus();
+        printSalePrice(saleStatus.getdDaySalePrice(), "크리스마스 디데이 할인: %s원\n");
+        printWeekSalePrice(saleStatus);
+        printSalePrice(saleStatus.getStarDatePrice(), "특별 할인: %s원\n");
+        printSalePrice(benefitStatus.getGiftBenefitPrice(), "증정 이벤트: %s원\n");
     }
 
-    private void printWeekSalePrice(BenefitStatus benefitStatus ) {
-        if(benefitStatus.getWeekSaleStatus().getSalePrice()<0)
-            System.out.printf("%s: %s원\n", benefitStatus.getWeekSaleStatus().getWeekDay(), changeFormat(
-                benefitStatus.getWeekSaleStatus().getSalePrice()));
+    private void printWeekSalePrice(SaleStatus saleStatus ) {
+        if(saleStatus.getWeekSaleStatus().getSalePrice()<0)
+            System.out.printf("%s: %s원\n", saleStatus.getWeekSaleStatus().getWeekDay(), changeFormat(
+                saleStatus.getWeekSaleStatus().getSalePrice()));
     }
 
     private void printSalePrice(long benefitStatus, String format) {
