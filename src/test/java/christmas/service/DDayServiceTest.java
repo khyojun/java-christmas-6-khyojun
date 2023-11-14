@@ -26,6 +26,13 @@ class DDayServiceTest {
         Assertions.assertThat(dDayService.calculateDdayBenefit(date)).isLessThan(0);
     }
 
+    @ParameterizedTest
+    @DisplayName("1-25일 날짜 이내의 할인가격 검증")
+    @ValueSource(ints = {26,27,31})
+    void calculateWrongDdayBenefit(int date) {
+        Assertions.assertThat(dDayService.calculateDdayBenefit(date)).isEqualTo(0);
+    }
+
 
 
 
