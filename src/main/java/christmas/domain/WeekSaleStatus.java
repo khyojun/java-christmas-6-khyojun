@@ -11,6 +11,10 @@ public class WeekSaleStatus {
         this.weekDay = weekDay;
     }
 
+    public static WeekSaleStatus nothing() {
+        return new WeekSaleStatus(0, "nothing");
+    }
+
     public long getSalePrice() {
         return salePrice;
     }

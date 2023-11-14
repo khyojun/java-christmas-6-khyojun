@@ -3,7 +3,6 @@ package christmas.service;
 import christmas.domain.BenefitStatus;
 import christmas.domain.Menu;
 import christmas.domain.SaleStatus;
-import christmas.domain.WeekSaleStatus;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -23,6 +22,11 @@ public class MenuService {
     public long calculateBeforeBenefit(Map<String, Integer> menuInfo) {
         long total = 0L;
         List<Menu> menus = List.of(Menu.values());
+        total = calculateTotalMenuPrice(menuInfo, menus, total);
+        return total;
+    }
+
+    private long calculateTotalMenuPrice(Map<String, Integer> menuInfo, List<Menu> menus, long total) {
         for (Menu menu : menus) {
             for (Entry<String, Integer> menuEntry : menuInfo.entrySet()) {
                 if (menu.getMenuName().equals(menuEntry.getKey())) {
@@ -40,8 +44,7 @@ public class MenuService {
     public BenefitStatus benefitCalculate(Integer date, Map<String, Integer> menuInfo,
         long calculatedMoney) {
         if (calculatedMoney < 10000) {
-            BenefitStatus benefitStatus = new BenefitStatus(
-                new SaleStatus(0, new WeekSaleStatus(0, ""), 0), 0);
+            BenefitStatus benefitStatus = BenefitStatus.nothing();
             benefitStatus.hasNothing();
             return benefitStatus;
         }

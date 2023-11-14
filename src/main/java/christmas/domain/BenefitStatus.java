@@ -14,6 +14,10 @@ public class BenefitStatus {
         this.none = false;
     }
 
+    public static BenefitStatus nothing() {
+        return new BenefitStatus(new SaleStatus(0, WeekSaleStatus.nothing(), 0), 0);
+    }
+
 
     public SaleStatus getSaleStatus() {
         return saleStatus;
