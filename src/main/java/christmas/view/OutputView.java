@@ -9,6 +9,8 @@ public class OutputView {
 
 
     private static final String FORMAT = "###,###,###,###";
+    private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat(FORMAT);
+
 
     private static OutputView instance;
 
@@ -37,23 +39,23 @@ public class OutputView {
     }
 
     public void printBeforeNotifyBenefit(Integer date) {
-        System.out.printf("12월 %d일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!\n\n", date);
+        System.out.printf("12월 %d일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!\n", date);
     }
 
     public void printOrderMenu(Map<String, Integer> menuInfo) {
-        System.out.println("<주문 메뉴>");
+        System.out.println("\n<주문 메뉴>");
         for (Entry<String, Integer> menuEntry : menuInfo.entrySet()) {
             System.out.printf("%s %d개\n", menuEntry.getKey(), menuEntry.getValue());
         }
     }
 
     public void printBeforeBenefitMoney(long totalPrice) {
-        System.out.println("<할인 전 총주문 금액>");
+        System.out.println("\n<할인 전 총주문 금액>");
         System.out.printf("%d원\n", totalPrice);
     }
 
     public void printGiftProcess(boolean gifted) {
-        System.out.println("<증정 메뉴>");
+        System.out.println("\n<증정 메뉴>");
         if(gifted){
             System.out.println("샴페인 1개");
             return;
@@ -62,19 +64,19 @@ public class OutputView {
     }
 
     public void printBenefit(BenefitStatus benefitStatus) {
+        System.out.println("\n<혜택 내역>");
         if(benefitStatus.isNone()){
             printNothng();
+            return;
         }
         printBenefitProcess(benefitStatus);
     }
 
     private void printBenefitProcess(BenefitStatus benefitStatus) {
-        System.out.println("<혜택 내역>");
-        DecimalFormat decimalFormat = new DecimalFormat(FORMAT);
-        printSalePrice(benefitStatus.getdDaySalePrice(), "크리스마스 디데이 할인: %s원\n", decimalFormat);
-        printWeekSalePrice(benefitStatus, decimalFormat);
-        printSalePrice(benefitStatus.getSpecialDatePrice(), "특별 할인: %s원\n", decimalFormat);
-        printSalePrice(benefitStatus.getGiftSalePrice(), "증정 이벤트: %s원", decimalFormat);
+        printSalePrice(benefitStatus.getdDaySalePrice(), "크리스마스 디데이 할인: %s원\n", DECIMAL_FORMAT);
+        printWeekSalePrice(benefitStatus, DECIMAL_FORMAT);
+        printSalePrice(benefitStatus.getSpecialDatePrice(), "특별 할인: %s원\n", DECIMAL_FORMAT);
+        printSalePrice(benefitStatus.getGiftSalePrice(), "증정 이벤트: %s원\n", DECIMAL_FORMAT);
     }
 
     private void printWeekSalePrice(BenefitStatus benefitStatus, DecimalFormat decimalFormat) {
@@ -94,9 +96,10 @@ public class OutputView {
     }
 
     private void printNothng() {
-        System.out.println("<혜택 내역>");
         System.out.println("없음");
     }
+
+
 
 
 }
