@@ -12,6 +12,21 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 class DateValidatorTest {
 
+    DateValidator dateValidator;
+
+    @BeforeEach
+    void init(){
+        dateValidator = new DateValidator();
+    }
+
+    @ParameterizedTest
+    @DisplayName("날짜 입력이 잘못된 경우! - 문자 입력의 예시")
+    @ValueSource(strings = {"a", "b", "!2"})
+    void validateNotNumber(String inputDate) {
+        Assertions.assertThatThrownBy(() -> dateValidator.validate(inputDate)).isInstanceOf(IllegalArgumentException.class)
+            .hasMessageContaining("[ERROR]");
+    }
+
 
 
 
