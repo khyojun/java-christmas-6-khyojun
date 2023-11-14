@@ -29,6 +29,14 @@ class MenuValidatorTest {
             .hasMessageContaining("[ERROR]");
     }
 
+    @ParameterizedTest
+    @DisplayName("메뉴 중복되게 입력한 경우!")
+    @ValueSource(strings = {"menu-1,menu-2", "menu-3,menu-5"})
+    void validateDuplicate(String inputMenu){
+        Assertions.assertThatThrownBy(() -> menuValidator.validate(inputMenu)).isInstanceOf(IllegalArgumentException.class)
+            .hasMessageContaining("[ERROR]");
+    }
+
 
 
 
