@@ -49,9 +49,9 @@ public class BenefitService {
 
     private WeekSaleStatus calculateWeekBenefit(Map<String, Integer> menuInfo, int value) {
         if (value == 5 || value == 6) {
-            return new WeekSaleStatus(checkBenefitMenu(menuInfo, "MAIN"), "평일 할인");
+            return new WeekSaleStatus(checkBenefitMenu(menuInfo, "MAIN"), "주말 할인");
         }
-        return new WeekSaleStatus(checkBenefitMenu(menuInfo, "DESERT"), "주말 할인");
+        return new WeekSaleStatus(checkBenefitMenu(menuInfo, "DESERT"), "평일 할인");
     }
 
     private long calculateDdayBenefit(Integer date) {
