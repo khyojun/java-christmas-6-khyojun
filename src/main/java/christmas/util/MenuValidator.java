@@ -6,6 +6,7 @@ import static christmas.constant.ErrorMessage.MENU;
 import static christmas.constant.MenuConstant.MENU_LIMIT;
 import static christmas.constant.MenuConstant.MENU_MIN_NUMBER;
 
+import christmas.constant.Delimiter;
 import christmas.domain.Menu;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,6 +26,7 @@ public class MenuValidator {
         try {
             validateCommaCount(inputMenu);
             List<String> firstSplitByComma = List.of(inputMenu.split(COMMA.getDelimiter()));
+            validateHyphen(firstSplitByComma);
             validateFormat(firstSplitByComma);
             Map<String, Integer> menuInfo = putMenu(firstSplitByComma);
             validateMenuCountWrongNumber(menuInfo);
@@ -32,9 +34,17 @@ public class MenuValidator {
             validateInMenu(menuInfo);
             validateMenuTotal(menuInfo);
             validateOnlyBeverage(menuInfo);
-
         } catch (IllegalArgumentException error) {
             throw new IllegalArgumentException(error.getMessage());
+        }
+    }
+
+    private void validateHyphen(List<String> firstSplitByComma) {
+        for (String splitComma : firstSplitByComma) {
+            long count = splitComma.chars()
+                .filter(nowValue -> nowValue == Hyphen.getDelimiter().charAt(0)).count();
+            if(count !=1)
+                throw new IllegalArgumentException("[ERROR] ");
         }
     }
 
