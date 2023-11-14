@@ -75,6 +75,15 @@ class MenuValidatorTest {
     }
 
 
+    @ParameterizedTest
+    @DisplayName("메뉴에 없는 값을 넣을 경우")
+    @ValueSource(strings = {"아구찜-1,레드페퍼-2"})
+    void validateNotInMenu(String inputMenu){
+        Assertions.assertThatThrownBy(() -> menuValidator.validate(inputMenu)).isInstanceOf(IllegalArgumentException.class)
+            .hasMessageContaining("[ERROR]");
+    }
+
+
 
 
 }
