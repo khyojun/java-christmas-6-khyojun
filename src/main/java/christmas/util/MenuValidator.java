@@ -23,6 +23,7 @@ public class MenuValidator {
 
     public void validate(String inputMenu) {
         try {
+            validateCommaCount(inputMenu);
             List<String> firstSplitByComma = List.of(inputMenu.split(COMMA.getDelimiter()));
             validateFormat(firstSplitByComma);
             Map<String, Integer> menuInfo = putMenu(firstSplitByComma);
@@ -31,9 +32,20 @@ public class MenuValidator {
             validateInMenu(menuInfo);
             validateMenuTotal(menuInfo);
             validateOnlyBeverage(menuInfo);
+
         } catch (IllegalArgumentException error) {
             throw new IllegalArgumentException(error.getMessage());
         }
+    }
+
+    private void validateCommaCount(String inputMenu) {
+        long count = inputMenu.chars().filter(element -> element == COMMA.getDelimiter().charAt(0))
+            .count();
+        List<String> firstSplitByComma = List.of(inputMenu.split(COMMA.getDelimiter()));
+        if(firstSplitByComma.size()-1 != count){
+            throw new IllegalArgumentException("[ERROR] comma-part");
+        }
+
     }
 
     private void validateOnlyBeverage(Map<String, Integer> menuInfo) {
