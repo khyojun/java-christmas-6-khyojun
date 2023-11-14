@@ -99,7 +99,14 @@ public class OutputView {
         System.out.println("없음");
     }
 
-
+    public void printTotalSalePrice(BenefitStatus benefitStatus,long totalSalePrice) {
+        System.out.println("\n<총혜택 금액>");
+        if(benefitStatus.isNone()){
+            System.out.println("없음");
+            return;
+        }
+        System.out.printf("%s원\n", changeFormat(DECIMAL_FORMAT, totalSalePrice));
+    }
 
 
 }

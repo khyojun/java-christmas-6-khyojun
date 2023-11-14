@@ -40,4 +40,8 @@ public class MenuService {
         }
         return benefitService.checkBenefit(date,menuInfo, calculatedMoney);
     }
+
+    public long totalSalePrice(BenefitStatus benefitStatus) {
+        return benefitStatus.getWeekSaleStatus().getSalePrice() + benefitStatus.getGiftSalePrice() + benefitStatus.getdDaySalePrice()+ benefitStatus.getSpecialDatePrice();
+    }
 }
