@@ -7,6 +7,7 @@ import static christmas.constant.MenuConstant.MENU_LIMIT;
 import static christmas.constant.MenuConstant.MENU_MIN_NUMBER;
 
 import christmas.constant.Delimiter;
+import christmas.constant.ErrorMessage;
 import christmas.domain.Menu;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -44,7 +45,7 @@ public class MenuValidator {
             long count = splitComma.chars()
                 .filter(nowValue -> nowValue == Hyphen.getDelimiter().charAt(0)).count();
             if(count !=1)
-                throw new IllegalArgumentException("[ERROR] ");
+                throw new IllegalArgumentException(MENU.getMessage());
         }
     }
 
@@ -53,7 +54,7 @@ public class MenuValidator {
             .count();
         List<String> firstSplitByComma = List.of(inputMenu.split(COMMA.getDelimiter()));
         if(firstSplitByComma.size()-1 != count){
-            throw new IllegalArgumentException("[ERROR] comma-part");
+            throw new IllegalArgumentException(MENU.getMessage());
         }
 
     }
@@ -66,7 +67,7 @@ public class MenuValidator {
                 Menu::getMenuName)
             .toList();
         if (isMenuHasOnlyBeverage(menuInfo, beverage)) {
-            throw new IllegalArgumentException("[ERROR] Only Beverage");
+            throw new IllegalArgumentException(MENU.getMessage());
         }
     }
 
@@ -90,7 +91,7 @@ public class MenuValidator {
         for (Integer value : menuInfo.values()) {
             total += value;
             if (total > MENU_LIMIT.getNumber()) {
-                throw new IllegalArgumentException("[ERROR] over count");
+                throw new IllegalArgumentException(MENU.getMessage());
             }
         }
     }
@@ -99,7 +100,7 @@ public class MenuValidator {
         List<String> menuNames = menuNames();
         for (Entry<String, Integer> menuEntry : menuInfo.entrySet()) {
             if (!menuNames.contains(menuEntry.getKey())) {
-                throw new IllegalArgumentException("[ERROR] no menu");
+                throw new IllegalArgumentException(MENU.getMessage());
             }
         }
     }
