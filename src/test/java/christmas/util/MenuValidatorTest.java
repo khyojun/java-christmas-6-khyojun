@@ -12,14 +12,10 @@ import org.junit.jupiter.params.provider.ValueSource;
 class MenuValidatorTest {
 
     MenuValidator menuValidator;
-
-
     @BeforeEach
     void init(){
         menuValidator = new MenuValidator();
     }
-
-
 
     @ParameterizedTest
     @DisplayName("comma 갯수가 잘못 입력된 경우!")
@@ -70,7 +66,13 @@ class MenuValidatorTest {
     }
 
 
-
+    @ParameterizedTest
+    @DisplayName("메뉴 갯수 입력이 잘못된 경우! - 메뉴 개수가 20개가 넘어간 경우")
+    @ValueSource(strings = {"제로콜라-21", "아이스크림-3,제로콜라-18"})
+    void validateMenuCountOver(String inputMenu){
+        Assertions.assertThatThrownBy(() -> menuValidator.validate(inputMenu)).isInstanceOf(IllegalArgumentException.class)
+            .hasMessageContaining("[ERROR]");
+    }
 
 
 
