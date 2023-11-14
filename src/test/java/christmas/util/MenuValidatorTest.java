@@ -46,12 +46,23 @@ class MenuValidatorTest {
     }
 
     @ParameterizedTest
-    @DisplayName("음료수만 입력한 경우!")
+    @DisplayName("음료수 입력한 경우!")
     @ValueSource(strings = {"제로콜라-1", "제로콜라-1,레드와인-1", "제로콜라-1,레드와인-1,샴페인-1"})
     void validateOnlyBeverage(String inputMenu){
         Assertions.assertThatThrownBy(() -> menuValidator.validate(inputMenu)).isInstanceOf(IllegalArgumentException.class)
             .hasMessageContaining("[ERROR]");
     }
+
+    @ParameterizedTest
+    @DisplayName("메뉴 갯수 입력이 잘못된 경우! - 문자로 온 경우")
+    @ValueSource(strings = {"제로콜라-a", "아이스크림-*"})
+    void validateWrongMenuCount(String inputMenu){
+        Assertions.assertThatThrownBy(() -> menuValidator.validate(inputMenu)).isInstanceOf(IllegalArgumentException.class)
+            .hasMessageContaining("[ERROR]");
+    }
+
+
+
 
 
 
