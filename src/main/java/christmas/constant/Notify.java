@@ -17,10 +17,10 @@ public enum Notify {
     BADGE("\n<12월 이벤트 배지>");
 
 
-    private String notify;
+    private final String notify;
 
     Notify(String notify) {
-        this.notify= notify;
+        this.notify = notify;
     }
 
     public String getNotify() {

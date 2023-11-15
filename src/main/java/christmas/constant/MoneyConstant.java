@@ -14,7 +14,7 @@ public enum MoneyConstant {
     ACCEPT_GIFT_MIN_MONEY(120000);
 
 
-    private long money;
+    private final long money;
 
     MoneyConstant(long money) {
         this.money = money;

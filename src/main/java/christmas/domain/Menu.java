@@ -8,7 +8,7 @@ public enum Menu {
 
     MAIN_T_BONE_STEAK("티본스테이크", 55000, "MAIN"),
     MAIN_BARBECUE_RIBS("바비큐립", 54000, "MAIN"),
-    MAIN_SEAFOOD_PASTA("해산물파스타",35000, "MAIN"),
+    MAIN_SEAFOOD_PASTA("해산물파스타", 35000, "MAIN"),
     MAIN_CHRISTMAS_PASTA("크리스마스파스타", 25000, "MAIN"),
 
     DESERT_CHOCO_CAKE("초코케이크", 15000, "DESERT"),
@@ -40,8 +40,6 @@ public enum Menu {
     public String getMenuCategory() {
         return menuCategory;
     }
-
-
 
 
 }

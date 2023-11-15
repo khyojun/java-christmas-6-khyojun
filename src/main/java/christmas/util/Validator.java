@@ -13,7 +13,7 @@ public class Validator {
         this.menuValidator = new MenuValidator();
     }
 
-    public void dateValidate(String inputDate){
+    public void dateValidate(String inputDate) {
         dateValidator.validate(inputDate);
     }
 

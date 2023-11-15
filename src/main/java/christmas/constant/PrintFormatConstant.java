@@ -18,7 +18,7 @@ public enum PrintFormatConstant {
     MONEY_FORMAT("###,###,###,###");
 
 
-    private String format;
+    private final String format;
 
     PrintFormatConstant(String format) {
         this.format = format;

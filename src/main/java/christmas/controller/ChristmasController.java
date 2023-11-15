@@ -37,10 +37,11 @@ public class ChristmasController {
         printBeforeBenefitMoney(calculateTotalMoney);
         giftProcess(calculateTotalMoney);
         BenefitStatus benefitStatus = recordBenefitStatus(calculateTotalMoney,
-                date, menuInfo);
+            date, menuInfo);
         printBenefit(benefitStatus);
         totalSalePriceProcess(benefitStatus);
-        outputView.printAfterSalePrice(menuService.afterSalePrice(calculateTotalMoney, benefitStatus.getSaleStatus()));
+        outputView.printAfterSalePrice(
+            menuService.afterSalePrice(calculateTotalMoney, benefitStatus.getSaleStatus()));
         outputView.printBadge(menuService.badgeService(benefitStatus));
     }
 
@@ -65,18 +66,19 @@ public class ChristmasController {
         outputView.printOrderMenu(menuInfo);
     }
 
-    private BenefitStatus recordBenefitStatus(long calculateTotalMoney, Integer date, Map<String, Integer> menuInfo) {
+    private BenefitStatus recordBenefitStatus(long calculateTotalMoney, Integer date,
+        Map<String, Integer> menuInfo) {
         return menuService.benefitCalculate(date, menuInfo,
             calculateTotalMoney);
     }
 
     private Map<String, Integer> inputMenuProcess() {
-        try{
+        try {
             outputView.beforeInputMenu();
             String inputMenu = inputView.inputMenu();
             validator.menuValidate(inputMenu);
             return convertProcess(inputMenu);
-        }catch (IllegalArgumentException error){
+        } catch (IllegalArgumentException error) {
             outputView.printError(error.getMessage());
             return inputMenuProcess();
         }
@@ -99,7 +101,7 @@ public class ChristmasController {
             String inputDate = inputView.readDate();
             validator.dateValidate(inputDate);
             return Integer.parseInt(inputDate);
-        }catch (IllegalArgumentException error){
+        } catch (IllegalArgumentException error) {
             outputView.printError(error.getMessage());
             return inputDateProcess();
         }

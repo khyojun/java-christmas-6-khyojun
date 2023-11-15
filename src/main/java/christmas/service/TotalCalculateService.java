@@ -25,7 +25,7 @@ public class TotalCalculateService {
     }
 
     public long calculateTotalMenuPrice(Map<String, Integer> menuInfo, List<Menu> menus) {
-        long total=0L;
+        long total = 0L;
         for (Menu menu : menus) {
             total = multiplyMenu(menuInfo, menu, total);
         }

@@ -12,8 +12,9 @@ public class StarDateService {
     public long calculateStarDateSale(Integer date) {
         return calculate(date);
     }
+
     private long calculate(Integer date) {
-        if(STAR_DATE.contains(date)){
+        if (STAR_DATE.contains(date)) {
             return STARDATE_PLUS_MONEY.getMoney();
         }
         return 0L;

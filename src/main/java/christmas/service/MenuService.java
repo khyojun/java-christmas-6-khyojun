@@ -34,7 +34,6 @@ public class MenuService {
     }
 
 
-
     public long giftService(long calculateTotalMoney) {
         return benefitService.giftCalculate(calculateTotalMoney);
     }

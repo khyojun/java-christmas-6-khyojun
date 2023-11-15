@@ -10,8 +10,9 @@ public class InputView {
     }
 
     public static InputView getInstance() {
-        if(instance==null)
+        if (instance == null) {
             instance = new InputView();
+        }
         return instance;
     }
 

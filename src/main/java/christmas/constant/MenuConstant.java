@@ -7,7 +7,6 @@ public enum MenuConstant {
     MENU_MIN_NUMBER(1);
 
 
-
     private int number;
 
 

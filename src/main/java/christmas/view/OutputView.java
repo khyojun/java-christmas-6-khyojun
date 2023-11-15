@@ -67,12 +67,13 @@ public class OutputView {
 
     public void printBeforeBenefitMoney(long totalPrice) {
         System.out.println(BEFORE_NOTIFY_BENEFIT_MONEY.getNotify());
-        System.out.printf(PrintFormatConstant.STANDARD_MONEY_FORMAT.getFormat(), changeFormat(totalPrice));
+        System.out.printf(PrintFormatConstant.STANDARD_MONEY_FORMAT.getFormat(),
+            changeFormat(totalPrice));
     }
 
     public void printGiftProcess(long giftPrice) {
         System.out.println(Notify.BEFORE_NOTIFY_GIFT_PROCESS.getNotify());
-        if (giftPrice>0) {
+        if (giftPrice > 0) {
             System.out.println(GIFT.getMessage());
             return;
         }
@@ -98,7 +99,8 @@ public class OutputView {
 
     private void printWeekSalePrice(SaleStatus saleStatus) {
         if (saleStatus.getWeekSaleStatus().getSalePrice() > 0) {
-            System.out.printf(WEEK_SALE_FORMAT.getFormat(), saleStatus.getWeekSaleStatus().getWeekDay(),
+            System.out.printf(WEEK_SALE_FORMAT.getFormat(),
+                saleStatus.getWeekSaleStatus().getWeekDay(),
                 changeFormat(
                     saleStatus.getWeekSaleStatus().getSalePrice()));
         }
@@ -120,13 +122,15 @@ public class OutputView {
 
     public void printTotalSalePrice(long totalSalePrice) {
         System.out.println(TOTAL_BENEFIT_PRICE.getNotify());
-        System.out.printf(PrintFormatConstant.STANDARD_MONEY_FORMAT.getFormat(), changeFormat(totalSalePrice));
+        System.out.printf(PrintFormatConstant.STANDARD_MONEY_FORMAT.getFormat(),
+            changeFormat(totalSalePrice));
     }
 
 
     public void printAfterSalePrice(long calculateMoney) {
         System.out.println(AFTER_PREDICT_SALE_PRICE.getNotify());
-        System.out.printf(PrintFormatConstant.STANDARD_MONEY_FORMAT.getFormat(), changeFormat(calculateMoney));
+        System.out.printf(PrintFormatConstant.STANDARD_MONEY_FORMAT.getFormat(),
+            changeFormat(calculateMoney));
     }
 
     public void printBadge(String badge) {

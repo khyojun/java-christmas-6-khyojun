@@ -7,7 +7,6 @@ public enum BadgeConstant {
     STAR_BADGE("별", 5000);
 
 
-
     private String badgeName;
     private int salePrice;
 

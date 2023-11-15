@@ -19,17 +19,19 @@ import java.util.Map.Entry;
 public class WeekService {
 
 
-
     public WeekSaleStatus calculateWeekBenefit(Map<String, Integer> menuInfo, Integer date) {
         return calculate(menuInfo, date);
     }
 
     private WeekSaleStatus calculate(Map<String, Integer> menuInfo, int date) {
-        int weekDay = LocalDate.of(YEAR.getDateNumber(), MONTH.getDateNumber(), date).getDayOfWeek().getValue();
+        int weekDay = LocalDate.of(YEAR.getDateNumber(), MONTH.getDateNumber(), date).getDayOfWeek()
+            .getValue();
         if (isWeekend(weekDay)) {
-            return new WeekSaleStatus(checkBenefitMenu(menuInfo, WEEKEND.getMenuCategory()), WEEKEND.getSaleMessage());
+            return new WeekSaleStatus(checkBenefitMenu(menuInfo, WEEKEND.getMenuCategory()),
+                WEEKEND.getSaleMessage());
         }
-        return new WeekSaleStatus(checkBenefitMenu(menuInfo, WEEKDAY.getMenuCategory()), WEEKDAY.getSaleMessage());
+        return new WeekSaleStatus(checkBenefitMenu(menuInfo, WEEKDAY.getMenuCategory()),
+            WEEKDAY.getSaleMessage());
     }
 
     private boolean isWeekend(int weekDay) {

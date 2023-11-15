@@ -5,7 +5,7 @@ public enum StandardConstant {
     NOTHING("없음");
 
 
-    private String message;
+    private final String message;
 
     StandardConstant(String message) {
         this.message = message;

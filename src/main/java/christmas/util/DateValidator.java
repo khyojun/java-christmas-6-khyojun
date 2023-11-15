@@ -7,21 +7,22 @@ import static christmas.constant.ErrorMessage.DATE;
 import christmas.constant.ErrorMessage;
 
 
-public class DateValidator{
+public class DateValidator {
 
 
     public void validate(String inputDate) {
         try {
             validateNumber(inputDate);
             validateRange(Integer.parseInt(inputDate));
-        }catch (IllegalArgumentException dateError){
+        } catch (IllegalArgumentException dateError) {
             throw new IllegalArgumentException(DATE.getMessage());
         }
     }
 
     private void validateRange(Integer convertedInputDate) {
-        if(isInDateRange(convertedInputDate))
+        if (isInDateRange(convertedInputDate)) {
             throw new IllegalArgumentException();
+        }
 
     }
 
@@ -31,9 +32,9 @@ public class DateValidator{
     }
 
     private void validateNumber(String inputDate) {
-        try{
+        try {
             Integer.parseInt(inputDate);
-        }catch (NumberFormatException error){
+        } catch (NumberFormatException error) {
             throw new IllegalArgumentException();
         }
     }

@@ -6,8 +6,8 @@ public enum WeekConstant {
     WEEKDAY("평일 할인", "DESERT");
 
 
-    private String saleMessage;
-    private String menuCategory;
+    private final String saleMessage;
+    private final String menuCategory;
 
     WeekConstant(String saleMessage, String menuCategory) {
         this.saleMessage = saleMessage;

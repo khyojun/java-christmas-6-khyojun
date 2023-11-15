@@ -42,8 +42,9 @@ public class MenuValidator {
 
     private void validateHyphen(List<String> firstSplitByComma) {
         for (String splitComma : firstSplitByComma) {
-            if(isRightCommaCount(splitComma))
+            if (isRightCommaCount(splitComma)) {
                 throw new IllegalArgumentException(MENU.getMessage());
+            }
         }
     }
 
@@ -55,7 +56,7 @@ public class MenuValidator {
 
     private void validateCommaCount(String inputMenu) {
         List<String> firstSplitByComma = List.of(inputMenu.split(COMMA.getDelimiter()));
-        if(isRightCommaCount(firstSplitByComma, inputMenu)){
+        if (isRightCommaCount(firstSplitByComma, inputMenu)) {
             throw new IllegalArgumentException(MENU.getMessage());
         }
 
@@ -124,7 +125,8 @@ public class MenuValidator {
 
     private void validateMenuCountWrongNumber(Map<String, Integer> menuInfo) {
         for (Entry<String, Integer> nowMenuInfo : menuInfo.entrySet()) {
-            if (nowMenuInfo.getValue() < MENU_MIN_NUMBER.getNumber() || nowMenuInfo.getValue() > MENU_LIMIT.getNumber()) {
+            if (nowMenuInfo.getValue() < MENU_MIN_NUMBER.getNumber()
+                || nowMenuInfo.getValue() > MENU_LIMIT.getNumber()) {
                 throw new IllegalArgumentException(MENU.getMessage());
             }
         }
