@@ -29,15 +29,21 @@ public class MenuValidator {
             validateHyphen(firstSplitByComma);
             validateFormat(firstSplitByComma);
             Map<String, Integer> menuInfo = putMenu(firstSplitByComma);
-            validateMenuCountWrongNumber(menuInfo);
-            validateMenuDuplicate(menuInfo, firstSplitByComma.size());
-            validateInMenu(menuInfo);
-            validateMenuTotal(menuInfo);
+            menuValidate(menuInfo, firstSplitByComma);
             validateOnlyBeverage(menuInfo);
         } catch (IllegalArgumentException error) {
             throw new IllegalArgumentException(error.getMessage());
         }
     }
+
+    private void menuValidate(Map<String, Integer> menuInfo, List<String> firstSplitByComma) {
+        validateMenuCountWrongNumber(menuInfo);
+        validateMenuDuplicate(menuInfo, firstSplitByComma.size());
+        validateInMenu(menuInfo);
+        validateMenuTotal(menuInfo);
+    }
+
+
 
     private void validateHyphen(List<String> firstSplitByComma) {
         for (String splitComma : firstSplitByComma) {
