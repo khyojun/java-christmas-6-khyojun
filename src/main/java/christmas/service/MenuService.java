@@ -16,10 +16,13 @@ public class MenuService {
 
     private final SaleService saleService;
 
+    private final TotalCalculateService totalCalculateService;
+
 
     public MenuService() {
         this.benefitService = new BenefitService();
         this.saleService = new SaleService();
+        this.totalCalculateService = new TotalCalculateService();
     }
 
     public long calculateBeforeBenefit(Map<String, Integer> menuInfo) {
@@ -28,21 +31,10 @@ public class MenuService {
     }
 
     private long calculateTotalMenuPrice(Map<String, Integer> menuInfo, List<Menu> menus) {
-        long total=0L;
-        for (Menu menu : menus) {
-            total = multiplyMenu(menuInfo, menu, total);
-        }
-        return total;
+        return totalCalculateService.calculateTotalMenuPrice(menuInfo, menus);
     }
 
-    private long multiplyMenu(Map<String, Integer> menuInfo, Menu menu, long total) {
-        for (Entry<String, Integer> menuEntry : menuInfo.entrySet()) {
-            if (menu.getMenuName().equals(menuEntry.getKey())) {
-                total += (long) menu.getPrice() * menuEntry.getValue();
-            }
-        }
-        return total;
-    }
+
 
     public long giftService(long calculateTotalMoney) {
         return benefitService.giftCalculate(calculateTotalMoney);
@@ -55,7 +47,7 @@ public class MenuService {
             benefitStatus.hasNothing();
             return benefitStatus;
         }
-        return benefitService.checkBenefit(date, menuInfo, calculatedMoney);
+        return benefitService.benefitLogicStart(date, menuInfo, calculatedMoney);
     }
 
     public long totalBenefitPrice(BenefitStatus benefitStatus) {

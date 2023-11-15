@@ -21,7 +21,7 @@ public class BenefitService {
         this.giftService = new GiftService();
     }
 
-    public BenefitStatus checkBenefit(Integer date, Map<String, Integer> menuInfo,
+    public BenefitStatus benefitLogicStart(Integer date, Map<String, Integer> menuInfo,
         long beforeBenefitMoney) {
         SaleStatus saleStatus = saleService.saleCalculate(date, menuInfo);
         BenefitStatus benefitStatus = new BenefitStatus(saleStatus,

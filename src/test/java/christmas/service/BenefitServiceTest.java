@@ -1,15 +1,11 @@
 package christmas.service;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
-import net.bytebuddy.utility.dispatcher.JavaDispatcher.Defaults;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -30,7 +26,7 @@ class BenefitServiceTest {
     void checkBenefit(Integer date, Map<String, Integer> menuInfo,
         long beforeBenefitMoney) {
 
-        Assertions.assertThat(benefitService.checkBenefit(date, menuInfo, beforeBenefitMoney).isNone()).isEqualTo(true);
+        Assertions.assertThat(benefitService.benefitLogicStart(date, menuInfo, beforeBenefitMoney).isNone()).isEqualTo(true);
 
 
     }
