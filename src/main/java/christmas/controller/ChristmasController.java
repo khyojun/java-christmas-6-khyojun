@@ -34,14 +34,30 @@ public class ChristmasController {
         Map<String, Integer> menuInfo = inputMenuProcess();
         printOrderMenu(date, menuInfo);
         long calculateTotalMoney = menuService.calculateBeforeBenefit(menuInfo);
-        outputView.printBeforeBenefitMoney(calculateTotalMoney);
-        outputView.printGiftProcess(menuService.giftService(calculateTotalMoney));
+        printBeforeBenefitMoney(calculateTotalMoney);
+        giftProcess(calculateTotalMoney);
         BenefitStatus benefitStatus = recordBenefitStatus(calculateTotalMoney,
                 date, menuInfo);
-        outputView.printBenefit(benefitStatus);
-        outputView.printTotalSalePrice(menuService.totalBenefitPrice(benefitStatus));
+        printBenefit(benefitStatus);
+        totalSalePriceProcess(benefitStatus);
         outputView.printAfterSalePrice(menuService.afterSalePrice(calculateTotalMoney, benefitStatus.getSaleStatus()));
         outputView.printBadge(menuService.badgeService(benefitStatus));
+    }
+
+    private void totalSalePriceProcess(BenefitStatus benefitStatus) {
+        outputView.printTotalSalePrice(menuService.totalBenefitPrice(benefitStatus));
+    }
+
+    private void printBenefit(BenefitStatus benefitStatus) {
+        outputView.printBenefit(benefitStatus);
+    }
+
+    private void giftProcess(long calculateTotalMoney) {
+        outputView.printGiftProcess(menuService.giftService(calculateTotalMoney));
+    }
+
+    private void printBeforeBenefitMoney(long calculateTotalMoney) {
+        outputView.printBeforeBenefitMoney(calculateTotalMoney);
     }
 
     private void printOrderMenu(Integer date, Map<String, Integer> menuInfo) {

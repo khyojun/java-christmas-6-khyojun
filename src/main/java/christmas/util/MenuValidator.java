@@ -42,21 +42,29 @@ public class MenuValidator {
 
     private void validateHyphen(List<String> firstSplitByComma) {
         for (String splitComma : firstSplitByComma) {
-            long count = splitComma.chars()
-                .filter(nowValue -> nowValue == Hyphen.getDelimiter().charAt(0)).count();
-            if(count !=1)
+            if(isRightCommaCount(splitComma))
                 throw new IllegalArgumentException(MENU.getMessage());
         }
     }
 
+    private boolean isRightCommaCount(String splitComma) {
+        long count = splitComma.chars()
+            .filter(nowValue -> nowValue == Hyphen.getDelimiter().charAt(0)).count();
+        return count != 1;
+    }
+
     private void validateCommaCount(String inputMenu) {
-        long count = inputMenu.chars().filter(element -> element == COMMA.getDelimiter().charAt(0))
-            .count();
         List<String> firstSplitByComma = List.of(inputMenu.split(COMMA.getDelimiter()));
-        if(firstSplitByComma.size()-1 != count){
+        if(isRightCommaCount(firstSplitByComma, inputMenu)){
             throw new IllegalArgumentException(MENU.getMessage());
         }
 
+    }
+
+    private boolean isRightCommaCount(List<String> firstSplitByComma, String inputMenu) {
+        long count = inputMenu.chars().filter(element -> element == COMMA.getDelimiter().charAt(0))
+            .count();
+        return firstSplitByComma.size() - 1 != count;
     }
 
     private void validateOnlyBeverage(Map<String, Integer> menuInfo) {
