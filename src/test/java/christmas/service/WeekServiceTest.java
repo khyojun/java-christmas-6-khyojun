@@ -24,14 +24,14 @@ public class WeekServiceTest {
     @DisplayName("평일일 때의 경우")
     @MethodSource("weekDayCase")
     void weekDayTest(Map<String, Integer> menuInfo, Integer date) {
-        Assertions.assertThat(weekService.calculateWeekBenefit(menuInfo,date).getSalePrice()).isEqualTo(-4046);
+        Assertions.assertThat(weekService.calculateWeekBenefit(menuInfo,date).getSalePrice()).isEqualTo(4046);
     }
 
     @ParameterizedTest
     @DisplayName("평일일 때의 경우")
     @MethodSource("weekendDayCase")
     void weekendDayTest(Map<String, Integer> menuInfo, Integer date) {
-        Assertions.assertThat(weekService.calculateWeekBenefit(menuInfo,date).getSalePrice()).isEqualTo(-6069);
+        Assertions.assertThat(weekService.calculateWeekBenefit(menuInfo,date).getSalePrice()).isEqualTo(6069);
     }
 
 

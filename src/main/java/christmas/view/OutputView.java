@@ -96,7 +96,7 @@ public class OutputView {
     }
 
     private void printWeekSalePrice(SaleStatus saleStatus) {
-        if (saleStatus.getWeekSaleStatus().getSalePrice() < 0) {
+        if (saleStatus.getWeekSaleStatus().getSalePrice() > 0) {
             System.out.printf(WEEK_SALE_FORMAT, saleStatus.getWeekSaleStatus().getWeekDay(),
                 changeFormat(
                     saleStatus.getWeekSaleStatus().getSalePrice()));
@@ -104,13 +104,13 @@ public class OutputView {
     }
 
     private void printSalePrice(long benefitStatus, String format) {
-        if (benefitStatus < 0) {
+        if (benefitStatus > 0) {
             System.out.printf(format, changeFormat(benefitStatus));
         }
     }
 
     private String changeFormat(long salePrice) {
-        return MONEY_FORMAT.format(salePrice);
+        return MONEY_FORMAT.format(salePrice * -1);
     }
 
     private void printNothing() {

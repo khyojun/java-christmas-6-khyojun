@@ -2,7 +2,7 @@ package christmas.constant;
 
 public enum MoneyConstant {
 
-    D_DAY_START_MONEY(-1000),
+    D_DAY_START_MONEY(1000),
     D_DAY_PLUS_MONEY(100),
 
     BENEFIT_MINIMUM_MONEY(10000),

@@ -2,9 +2,9 @@ package christmas.constant;
 
 public enum BadgeConstant {
 
-    SANTA_BADGE("산타", -20000),
-    TREE_BADGE("트리", -10000),
-    STAR_BADGE("별", -5000);
+    SANTA_BADGE("산타", 20000),
+    TREE_BADGE("트리", 10000),
+    STAR_BADGE("별", 5000);
 
 
 

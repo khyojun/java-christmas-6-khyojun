@@ -30,6 +30,6 @@ class StarDateServiceTest {
     @DisplayName("별표 날인 경우!")
     @ValueSource(ints = {3, 10, 17, 24, 25, 31})
     void starDate(int date){
-        Assertions.assertThat(starDateService.calculateStarDateSale(date)).isEqualTo(-1000);
+        Assertions.assertThat(starDateService.calculateStarDateSale(date)).isEqualTo(1000);
     }
 }

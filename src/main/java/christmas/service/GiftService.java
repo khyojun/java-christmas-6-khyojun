@@ -8,7 +8,7 @@ public class GiftService {
 
     public long calculateGiftBenefit(long calculateTotalMoney) {
         if(isOverToGetGift(calculateTotalMoney)) {
-            return Menu.BEVERAGE_CHAMPAGNE.getPrice() * -1;
+            return Menu.BEVERAGE_CHAMPAGNE.getPrice();
         }
         return 0;
     }

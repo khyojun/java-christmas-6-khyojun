@@ -29,7 +29,7 @@ class GiftServiceTest {
     @ValueSource(ints = {125000, 140000})
     void calculateGiftBenefit(int calculateTotalMoney) {
         Assertions.assertThat(giftService.calculateGiftBenefit(calculateTotalMoney)).isEqualTo(
-            BEVERAGE_CHAMPAGNE.getPrice()*-1);
+            BEVERAGE_CHAMPAGNE.getPrice());
     }
 
     @ParameterizedTest

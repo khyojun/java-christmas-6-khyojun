@@ -18,7 +18,7 @@ public class DDayService {
 
     private long calculate(Integer day) {
         if (day <= CHRISTMAS_DAY.getDateNumber()) {
-            return D_DAY_START_MONEY.getMoney() + (day - FIRST_DAY.getDateNumber()) * D_DAY_PLUS_MONEY.getMoney() * -1;
+            return D_DAY_START_MONEY.getMoney() + (day - FIRST_DAY.getDateNumber()) * D_DAY_PLUS_MONEY.getMoney() ;
         }
         return 0;
     }

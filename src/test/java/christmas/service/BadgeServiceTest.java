@@ -34,10 +34,10 @@ class BadgeServiceTest {
 
     static Stream<Arguments> badgeInfo() {
         return Stream.of(
-            Arguments.arguments(-20000, "산타"),
-            Arguments.arguments(-10000, "트리"),
-            Arguments.arguments(-5000, "별"),
-            Arguments.arguments(-3000, "없음")
+            Arguments.arguments(20000, "산타"),
+            Arguments.arguments(10000, "트리"),
+            Arguments.arguments(5000, "별"),
+            Arguments.arguments(3000, "없음")
         );
     }
 

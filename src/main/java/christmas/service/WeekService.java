@@ -66,7 +66,7 @@ public class WeekService {
     private long calculateCategory(String menuName, long dateSalePrice,
         Entry<String, Integer> menuEntry) {
         if (menuName.equals(menuEntry.getKey())) {
-            dateSalePrice -= menuEntry.getValue() * PLUS_MONEY;
+            dateSalePrice += menuEntry.getValue() * PLUS_MONEY;
         }
         return dateSalePrice;
     }
