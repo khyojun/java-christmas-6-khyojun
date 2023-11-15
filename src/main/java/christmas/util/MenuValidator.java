@@ -5,9 +5,12 @@ import static christmas.constant.Delimiter.Hyphen;
 import static christmas.constant.ErrorMessage.MENU;
 import static christmas.constant.MenuConstant.MENU_LIMIT;
 import static christmas.constant.MenuConstant.MENU_MIN_NUMBER;
+import static christmas.constant.ValidatorConstant.MENU_PATTERN;
+import static christmas.constant.ValidatorConstant.RESTRICT_ONLY_CATEGORY;
 
 import christmas.constant.Delimiter;
 import christmas.constant.ErrorMessage;
+import christmas.constant.ValidatorConstant;
 import christmas.domain.Menu;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,10 +20,6 @@ import java.util.Map.Entry;
 import java.util.regex.Pattern;
 
 public class MenuValidator {
-
-    private static final String MENU_PATTERN = "^[A-Za-z가-힣]+-+[\\d]+$";
-
-    private static final String RESTRICT_ONLY_CATEGORY = "BEVERAGE";
 
 
     public void validate(String inputMenu) {
@@ -71,7 +70,7 @@ public class MenuValidator {
     private void validateOnlyBeverage(Map<String, Integer> menuInfo) {
         List<Menu> values = List.of(Menu.values());
         List<String> beverage = values.stream().filter(m -> m.getMenuCategory().equals(
-                RESTRICT_ONLY_CATEGORY))
+                RESTRICT_ONLY_CATEGORY.getValue()))
             .map(
                 Menu::getMenuName)
             .toList();
@@ -160,6 +159,6 @@ public class MenuValidator {
     }
 
     private boolean isNotMatchFormat(String splitInputMenu) {
-        return !Pattern.matches(MENU_PATTERN, splitInputMenu);
+        return !Pattern.matches(MENU_PATTERN.getValue(), splitInputMenu);
     }
 }
