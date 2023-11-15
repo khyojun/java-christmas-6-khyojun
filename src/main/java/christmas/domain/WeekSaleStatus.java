@@ -1,10 +1,13 @@
 package christmas.domain;
 
+import static christmas.constant.StandardConstant.NOTHING;
+
+
 public class WeekSaleStatus {
 
 
-    private long salePrice;
-    private String weekDay;
+    private final long salePrice;
+    private final String weekDay;
 
     public WeekSaleStatus(long salePrice, String weekDay) {
         this.salePrice = salePrice;
@@ -12,7 +15,7 @@ public class WeekSaleStatus {
     }
 
     public static WeekSaleStatus nothing() {
-        return new WeekSaleStatus(0, "nothing");
+        return new WeekSaleStatus(0, NOTHING.getMessage());
     }
 
     public long getSalePrice() {

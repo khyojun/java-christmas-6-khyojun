@@ -15,13 +15,13 @@ public class TotalCalculateService {
 
     private long calculate(BenefitStatus benefitStatus) {
         SaleStatus saleStatus = benefitStatus.getSaleStatus();
-        return benefitStatus.getGiftBenefitPrice() + saleStatus.getdDaySalePrice()
+        return benefitStatus.getGiftBenefitPrice() + saleStatus.getDDaySalePrice()
             + saleStatus.getStarDatePrice() + saleStatus.getWeekSaleStatus().getSalePrice();
     }
 
     public long calculateTotalSale(SaleStatus saleStatus) {
         return saleStatus.getWeekSaleStatus().getSalePrice()
-            + saleStatus.getdDaySalePrice() + saleStatus.getStarDatePrice();
+            + saleStatus.getDDaySalePrice() + saleStatus.getStarDatePrice();
     }
 
     public long calculateTotalMenuPrice(Map<String, Integer> menuInfo, List<Menu> menus) {

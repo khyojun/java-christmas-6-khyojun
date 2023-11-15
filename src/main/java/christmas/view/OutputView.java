@@ -1,5 +1,24 @@
 package christmas.view;
 
+import static christmas.constant.BeforeMessage.BEFORE_INPUT_DATE;
+import static christmas.constant.BeforeMessage.BEFORE_INPUT_MENU;
+import static christmas.constant.BeforeMessage.BEFORE_BENEFIT;
+import static christmas.constant.Notify.AFTER_PREDICT_SALE_PRICE;
+import static christmas.constant.Notify.BADGE;
+import static christmas.constant.Notify.BEFORE_NOTIFY_BENEFIT_MONEY;
+import static christmas.constant.Notify.BEFORE_NOTIFY_ORDER;
+import static christmas.constant.Notify.BENEFIT_BOARD;
+import static christmas.constant.Notify.TOTAL_BENEFIT_PRICE;
+import static christmas.constant.PrintFormatConstant.D_DAY_SALE_FORMAT;
+import static christmas.constant.PrintFormatConstant.GIFT_SALE_FORMAT;
+import static christmas.constant.PrintFormatConstant.ORDER_FORM;
+import static christmas.constant.PrintFormatConstant.STAR_DATE_SALE_FORMAT;
+import static christmas.constant.PrintFormatConstant.WEEK_SALE_FORMAT;
+import static christmas.constant.PrintGift.GIFT;
+import static christmas.constant.StandardConstant.NOTHING;
+
+import christmas.constant.Notify;
+import christmas.constant.PrintFormatConstant;
 import christmas.domain.BenefitStatus;
 import christmas.domain.SaleStatus;
 import java.text.DecimalFormat;
@@ -7,27 +26,9 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 public class OutputView {
-    private static final String BEFORE_INPUT_DATE = "안녕하세요! 우테코 식당 12월 이벤트 플래너입니다.\n12월 중 식당 예상 방문 날짜는 언제인가요? (숫자만 입력해 주세요!)";
-    private static final String BEFORE_INPUT_MENU = "주문하실 메뉴를 메뉴와 개수를 알려 주세요. (e.g. 해산물파스타-2,레드와인-1,초코케이크-1)";
-    private static final String BEFORE_NOTIFY_BENEFIT = "12월 %d일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!\n";
-    private static final String BEFORE_NOTIFY_ORDER = "\n<주문 메뉴>";
-    private static final String ORDER_FORM = "%s %d개\n";
-    private static final String BEFORE_NOTIFY_BENEFIT_MONEY = "\n<할인 전 총주문 금액>";
-    private static final String STANDARD_MONEY_FORMAT = "%s원\n";
-    private static final String NOTIFY_BEFORE_GIFT_PROCESS = "\n<증정 메뉴>";
-    private static final String GIFT = "샴페인 1개";
-    private static final String NOTHING = "없음";
-    private static final String NOTIFY_BENEFIT_BOARD = "\n<혜택 내역>";
-    private static final String D_DAY_SALE_FORMAT = "크리스마스 디데이 할인: %s원\n";
-    private static final String STAR_DATE_SALE_FORMAT = "특별 할인: %s원\n";
-    private static final String GIFT_SALE_FORMAT = "증정 이벤트: %s원\n";
-    private static final String WEEK_SALE_FORMAT = "%s: %s원\n";
-    private static final String TOTAL_BENEFIT_PRICE_NOTIFY = "\n<총혜택 금액>";
-    private static final String NOTIFY_AFTER_PREDICT_SALE_PRICE = "\n<할인 후 예상 결제 금액>";
-    private static final String NOTIFY_BADGE = "\n<12월 이벤트 배지>";
-    private static final String FORMAT = "###,###,###,###";
-    private static final DecimalFormat MONEY_FORMAT = new DecimalFormat(FORMAT);
 
+    private static final DecimalFormat MONEY = new DecimalFormat(
+        PrintFormatConstant.MONEY_FORMAT.getFormat());
 
     private static OutputView instance;
 
@@ -42,7 +43,7 @@ public class OutputView {
     }
 
     public void beforeInputDate() {
-        System.out.println(BEFORE_INPUT_DATE);
+        System.out.println(BEFORE_INPUT_DATE.getMessage());
     }
 
     public void printError(String message) {
@@ -50,36 +51,36 @@ public class OutputView {
     }
 
     public void beforeInputMenu() {
-        System.out.println(BEFORE_INPUT_MENU);
+        System.out.println(BEFORE_INPUT_MENU.getMessage());
     }
 
     public void printBeforeNotifyBenefit(Integer date) {
-        System.out.printf(BEFORE_NOTIFY_BENEFIT, date);
+        System.out.printf(BEFORE_BENEFIT.getMessage(), date);
     }
 
     public void printOrderMenu(Map<String, Integer> menuInfo) {
-        System.out.println(BEFORE_NOTIFY_ORDER);
+        System.out.println(BEFORE_NOTIFY_ORDER.getNotify());
         for (Entry<String, Integer> menuEntry : menuInfo.entrySet()) {
-            System.out.printf(ORDER_FORM, menuEntry.getKey(), menuEntry.getValue());
+            System.out.printf(ORDER_FORM.getFormat(), menuEntry.getKey(), menuEntry.getValue());
         }
     }
 
     public void printBeforeBenefitMoney(long totalPrice) {
-        System.out.println(BEFORE_NOTIFY_BENEFIT_MONEY);
-        System.out.printf(STANDARD_MONEY_FORMAT, changeFormat(totalPrice));
+        System.out.println(BEFORE_NOTIFY_BENEFIT_MONEY.getNotify());
+        System.out.printf(PrintFormatConstant.STANDARD_MONEY_FORMAT.getFormat(), changeFormat(totalPrice));
     }
 
     public void printGiftProcess(long giftPrice) {
-        System.out.println(NOTIFY_BEFORE_GIFT_PROCESS);
+        System.out.println(Notify.BEFORE_NOTIFY_GIFT_PROCESS.getNotify());
         if (giftPrice>0) {
-            System.out.println(GIFT);
+            System.out.println(GIFT.getMessage());
             return;
         }
-        System.out.println(NOTHING);
+        System.out.println(NOTHING.getMessage());
     }
 
     public void printBenefit(BenefitStatus benefitStatus) {
-        System.out.println(NOTIFY_BENEFIT_BOARD);
+        System.out.println(BENEFIT_BOARD.getNotify());
         if (benefitStatus.isNone()) {
             printNothing();
             return;
@@ -89,15 +90,15 @@ public class OutputView {
 
     private void printBenefitProcess(BenefitStatus benefitStatus) {
         SaleStatus saleStatus = benefitStatus.getSaleStatus();
-        printSalePrice(saleStatus.getdDaySalePrice(), D_DAY_SALE_FORMAT);
+        printSalePrice(saleStatus.getDDaySalePrice(), D_DAY_SALE_FORMAT.getFormat());
         printWeekSalePrice(saleStatus);
-        printSalePrice(saleStatus.getStarDatePrice(), STAR_DATE_SALE_FORMAT);
-        printSalePrice(benefitStatus.getGiftBenefitPrice(), GIFT_SALE_FORMAT);
+        printSalePrice(saleStatus.getStarDatePrice(), STAR_DATE_SALE_FORMAT.getFormat());
+        printSalePrice(benefitStatus.getGiftBenefitPrice(), GIFT_SALE_FORMAT.getFormat());
     }
 
     private void printWeekSalePrice(SaleStatus saleStatus) {
         if (saleStatus.getWeekSaleStatus().getSalePrice() > 0) {
-            System.out.printf(WEEK_SALE_FORMAT, saleStatus.getWeekSaleStatus().getWeekDay(),
+            System.out.printf(WEEK_SALE_FORMAT.getFormat(), saleStatus.getWeekSaleStatus().getWeekDay(),
                 changeFormat(
                     saleStatus.getWeekSaleStatus().getSalePrice()));
         }
@@ -110,26 +111,26 @@ public class OutputView {
     }
 
     private String changeFormat(long salePrice) {
-        return MONEY_FORMAT.format(salePrice * -1);
+        return MONEY.format(salePrice * -1);
     }
 
     private void printNothing() {
-        System.out.println(NOTHING);
+        System.out.println(NOTHING.getMessage());
     }
 
     public void printTotalSalePrice(long totalSalePrice) {
-        System.out.println(TOTAL_BENEFIT_PRICE_NOTIFY);
-        System.out.printf(STANDARD_MONEY_FORMAT, changeFormat(totalSalePrice));
+        System.out.println(TOTAL_BENEFIT_PRICE.getNotify());
+        System.out.printf(PrintFormatConstant.STANDARD_MONEY_FORMAT.getFormat(), changeFormat(totalSalePrice));
     }
 
 
     public void printAfterSalePrice(long calculateMoney) {
-        System.out.println(NOTIFY_AFTER_PREDICT_SALE_PRICE);
-        System.out.printf(STANDARD_MONEY_FORMAT, changeFormat(calculateMoney));
+        System.out.println(AFTER_PREDICT_SALE_PRICE.getNotify());
+        System.out.printf(PrintFormatConstant.STANDARD_MONEY_FORMAT.getFormat(), changeFormat(calculateMoney));
     }
 
     public void printBadge(String badge) {
-        System.out.println(NOTIFY_BADGE);
+        System.out.println(BADGE.getNotify());
         System.out.printf(badge);
     }
 

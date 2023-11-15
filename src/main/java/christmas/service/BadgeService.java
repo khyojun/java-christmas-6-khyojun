@@ -4,11 +4,13 @@ package christmas.service;
 import static christmas.constant.BadgeConstant.SANTA_BADGE;
 import static christmas.constant.BadgeConstant.STAR_BADGE;
 import static christmas.constant.BadgeConstant.TREE_BADGE;
+import static christmas.constant.StandardConstant.NOTHING;
+
+import christmas.constant.StandardConstant;
 
 
 public class BadgeService {
 
-    private static final String NOTHING = "없음";
 
     public String decideBadge(long totalBenefitPrice) {
         return decide(totalBenefitPrice);
@@ -24,6 +26,6 @@ public class BadgeService {
         if (totalBenefitPrice >= STAR_BADGE.getSalePrice()) {
             return STAR_BADGE.getBadgeName();
         }
-        return NOTHING;
+        return NOTHING.getMessage();
     }
 }

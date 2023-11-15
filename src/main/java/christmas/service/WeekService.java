@@ -2,7 +2,13 @@ package christmas.service;
 
 import static christmas.constant.DateConstant.MONTH;
 import static christmas.constant.DateConstant.YEAR;
+import static christmas.constant.WeekConstant.WEEKDAY;
+import static christmas.constant.WeekConstant.WEEKEND;
+import static christmas.constant.WeekNumConstant.FRIDAY;
+import static christmas.constant.WeekNumConstant.PLUS_MONEY;
+import static christmas.constant.WeekNumConstant.SATURDAY;
 
+import christmas.constant.WeekNumConstant;
 import christmas.domain.Menu;
 import christmas.domain.WeekSaleStatus;
 import java.time.LocalDate;
@@ -12,16 +18,6 @@ import java.util.Map.Entry;
 
 public class WeekService {
 
-    private static final String MAIN_MENU = "MAIN";
-    private static final String DESERT_MENU = "DESERT";
-
-    private static final String WEEKEND_SALE = "주말 할인";
-    private static final String WEEKDAY_SALE = "평일 할인";
-
-    private static final int FRIDAY_WEEK_NUM = 5;
-    private static final int SATURDAY_WEEK_NUM = 6;
-
-    private static final long PLUS_MONEY = 2023L;
 
 
     public WeekSaleStatus calculateWeekBenefit(Map<String, Integer> menuInfo, Integer date) {
@@ -31,13 +27,13 @@ public class WeekService {
     private WeekSaleStatus calculate(Map<String, Integer> menuInfo, int date) {
         int weekDay = LocalDate.of(YEAR.getDateNumber(), MONTH.getDateNumber(), date).getDayOfWeek().getValue();
         if (isWeekend(weekDay)) {
-            return new WeekSaleStatus(checkBenefitMenu(menuInfo, MAIN_MENU), WEEKEND_SALE);
+            return new WeekSaleStatus(checkBenefitMenu(menuInfo, WEEKEND.getMenuCategory()), WEEKEND.getSaleMessage());
         }
-        return new WeekSaleStatus(checkBenefitMenu(menuInfo, DESERT_MENU), WEEKDAY_SALE);
+        return new WeekSaleStatus(checkBenefitMenu(menuInfo, WEEKDAY.getMenuCategory()), WEEKDAY.getSaleMessage());
     }
 
     private boolean isWeekend(int weekDay) {
-        return weekDay == FRIDAY_WEEK_NUM || weekDay == SATURDAY_WEEK_NUM;
+        return weekDay == FRIDAY.getNumber() || weekDay == SATURDAY.getNumber();
     }
 
     private long checkBenefitMenu(Map<String, Integer> menuInfo, String menuCategory) {
@@ -66,7 +62,7 @@ public class WeekService {
     private long calculateCategory(String menuName, long dateSalePrice,
         Entry<String, Integer> menuEntry) {
         if (menuName.equals(menuEntry.getKey())) {
-            dateSalePrice += menuEntry.getValue() * PLUS_MONEY;
+            dateSalePrice += menuEntry.getValue() * PLUS_MONEY.getNumber();
         }
         return dateSalePrice;
     }

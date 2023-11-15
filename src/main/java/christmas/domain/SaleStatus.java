@@ -19,7 +19,7 @@ public class SaleStatus {
         return starDatePrice;
     }
 
-    public long getdDaySalePrice() {
+    public long getDDaySalePrice() {
         return dDaySalePrice;
     }
 
